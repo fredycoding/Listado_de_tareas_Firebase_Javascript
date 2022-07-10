@@ -33,7 +33,7 @@ function renderTareas(doc) {
   <h3 class="h5">${doc.data().titulo}</h3>
   <p>${doc.data().tarea}</p>
 <div>
-  <button class="btn btn-primary btn-delete" data-id="${doc.id}">
+  <button class="btn btn-primary btn-delete" id="botondelete-${doc.id}" onclick="eliminar('${doc.id}')">
     🗑 Delete
   </button>
   <button class="btn btn-secondary btn-edit" data-id="${doc.id}">
@@ -42,27 +42,15 @@ function renderTareas(doc) {
 </div>
 </div>`;
 
-/*
-  let divseparador = document.createElement("div");
-  let li = document.createElement("li");
-  let titulo = document.createElement("span");
-  let tarea = document.createElement("span");
+
+
+ /*
   let botoneliminar = document.createElement("button");
-
-  li.setAttribute("id", doc.id);
-  li.setAttribute("draggable","true")
-  li.setAttribute("ondragstart", "onDragStart(event);")
-  li.setAttribute("class","list-group-item")
-  titulo.textContent = doc.data().titulo;
-  tarea.textContent = doc.data().tarea;
   botoneliminar.textContent = "X";
+  tareascreadasContainer.appendChild(botoneliminar)
+//  li.appendChild(botoneliminar);
 
-  li.appendChild(titulo);
-  li.appendChild(divseparador);  
-  li.appendChild(tarea);
-  li.appendChild(botoneliminar);
-
-  ListadeTareas.appendChild(li);
+  //ListadeTareas.appendChild(
 
   // Deleting Data
   botoneliminar.addEventListener("click", e => {
@@ -71,6 +59,15 @@ function renderTareas(doc) {
     db.collection("tareasDb").doc(id).delete();
   });
   */
+  
+}
+
+function eliminar(idboton){
+ 
+  db.collection("tareasDb").doc(idboton).delete();
+ 
+  
+
 }
 
 // Getting Data
@@ -103,8 +100,9 @@ function getRealtimeData() {
         if (change.type === "added") {
           renderTareas(change.doc);
         } else if (change.type === "removed") {
-          let li = ListadeTareas.querySelector(`[data-id=${change.doc.id}]`);
-          ListadeTareas.removeChild(li);
+          tareascreadasContainer.innerHTML = "";
+          
+          getRealtimeData();
         }
       });
     });
