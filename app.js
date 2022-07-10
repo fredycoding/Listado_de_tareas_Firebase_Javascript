@@ -62,12 +62,8 @@ function renderTareas(doc) {
   
 }
 
-function eliminar(idboton){
- 
+function eliminar(idboton){ 
   db.collection("tareasDb").doc(idboton).delete();
- 
-  
-
 }
 
 // Getting Data
@@ -92,17 +88,17 @@ form.addEventListener("submit", e => {
 
 // Realtime listener
 function getRealtimeData() {
-  //document.querySelector("#loader").style.display = "block";
+
   db.collection("tareasDb").orderBy("titulo").onSnapshot(snapshot => {
-      //document.querySelector("#loader").style.display = "none";
+
       let changes = snapshot.docChanges();
       changes.forEach(change => {
         if (change.type === "added") {
           renderTareas(change.doc);
         } else if (change.type === "removed") {
-          tareascreadasContainer.innerHTML = "";
-          
-          getRealtimeData();
+          console.log("Elemento eliminado " + change.doc.id)
+          const element = document.getElementById(change.doc.id); //Traigo el elemento eliminado
+          element.remove(); // Elimina el div por el id          
         }
       });
     });
