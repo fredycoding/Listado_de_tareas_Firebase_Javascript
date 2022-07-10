@@ -79,7 +79,7 @@ form.addEventListener("submit", e => {
 function getRealtimeData() {
   //document.querySelector("#loader").style.display = "block";
   db.collection("tareasDb").orderBy("titulo").onSnapshot(snapshot => {
-      document.querySelector("#loader").style.display = "none";
+      //document.querySelector("#loader").style.display = "none";
       let changes = snapshot.docChanges();
       changes.forEach(change => {
         if (change.type === "added") {
