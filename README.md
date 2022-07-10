@@ -1,4 +1,4 @@
-# Cloud cafe Vanilla javascrip project to implement firebase firestore features
+# Listado de Tareas con Firebase y Javascript
 
 ```
 To test the app, open index.html file in live server
@@ -7,8 +7,8 @@ To test the app, open index.html file in live server
 ## Author
 
 <blockquote>
-Mahmudul alam,
-Email: expelmahmud@gmail.com
+Fredy D. B.
+
 </blockquote>
 
 ========Thank You !!!=========
