@@ -1,5 +1,6 @@
 const ListadeTareas = document.querySelector("#ListadeTareas");
 const form = document.querySelector("#add-tarea-form");
+const tareascreadasContainer = document.getElementById("tareas-creadas");
 
 /* Funciones de Drag and Drop */
 // Inicia el Drag
@@ -22,9 +23,26 @@ function onDrop(event) {
 
 }
 
+tareascreadasContainer.innerHTML = "";
+
+function renderTareas(doc) {
+  
 
 
-function renderCafe(doc) {
+  tareascreadasContainer.innerHTML += `<div id="${doc.id}" class="card card-body mt-2 border-primary" draggable="true" ondragstart="onDragStart(event);">
+  <h3 class="h5">${doc.data().titulo}</h3>
+  <p>${doc.data().tarea}</p>
+<div>
+  <button class="btn btn-primary btn-delete" data-id="${doc.id}">
+    🗑 Delete
+  </button>
+  <button class="btn btn-secondary btn-edit" data-id="${doc.id}">
+    🖉 Edit
+  </button>
+</div>
+</div>`;
+
+/*
   let divseparador = document.createElement("div");
   let li = document.createElement("li");
   let titulo = document.createElement("span");
@@ -40,8 +58,7 @@ function renderCafe(doc) {
   botoneliminar.textContent = "X";
 
   li.appendChild(titulo);
-  li.appendChild(divseparador);
-  
+  li.appendChild(divseparador);  
   li.appendChild(tarea);
   li.appendChild(botoneliminar);
 
@@ -53,6 +70,7 @@ function renderCafe(doc) {
     let id = e.target.parentElement.getAttribute("id");
     db.collection("tareasDb").doc(id).delete();
   });
+  */
 }
 
 // Getting Data
@@ -62,7 +80,7 @@ function getData() {
   db.collection("tareasDb").orderBy("titulo").get().then(snapshot => {
       console.log(snapshot.docs);
       document.querySelector("#loader").style.display = "none";
-      snapshot.docs.forEach(doc => renderCafe(doc));
+      snapshot.docs.forEach(doc => renderTareas(doc));
     });
 }
 
@@ -83,7 +101,7 @@ function getRealtimeData() {
       let changes = snapshot.docChanges();
       changes.forEach(change => {
         if (change.type === "added") {
-          renderCafe(change.doc);
+          renderTareas(change.doc);
         } else if (change.type === "removed") {
           let li = ListadeTareas.querySelector(`[data-id=${change.doc.id}]`);
           ListadeTareas.removeChild(li);
