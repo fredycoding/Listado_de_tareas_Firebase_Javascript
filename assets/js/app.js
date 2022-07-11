@@ -85,9 +85,25 @@ if (doc.data().estado == "finalizada"){
 }  
 }
 
-//Eliminamos cuando presionamos el botón eliminar
+//Eliminamos cuando presionamos el botón eliminar, enviamos un sweet alert
+//para confirmar el cambio
 function eliminar(iddoc){ 
-  db.collection("tareasDb").doc(iddoc).delete();
+  Swal.fire({
+    title: 'Esta seguro que desea eliminar esta tarea?',
+    showDenyButton: true,
+    confirmButtonText: 'Eliminar',
+    denyButtonText: `No eliminar`,
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      db.collection("tareasDb").doc(iddoc).delete();
+      Swal.fire('Tarea eliminada!', '', 'success')
+    } 
+  })
+
+
+
+  
 } // Fin eliminar
 
 // Actualizamos la información cuando cambiamos de zona el div
