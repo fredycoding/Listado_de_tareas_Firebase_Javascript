@@ -78,18 +78,18 @@
                   <div>
                       <label for="task-title">Título:</label>
                       <input type="text" name="titulo" class="My First Title form-control"
-                          placeholder="Título de la tarea" />
+                          placeholder="Título de la tarea" id="titulo"/>
                   </div>
                   <div class="mt-2">
                       <label for="task-description">Descripción:</label>
                       <textarea name="tarea" rows="3" class="form-control mb-3"
-                          placeholder="Ingrese la descripción de la tarea"></textarea>
+                          placeholder="Ingrese la descripción de la tarea" id="tarea"></textarea>
                   </div>
 
               </div>
               <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                  <button class="btn btn-primary" type="submit">Guardar</button>
+                  <button class="btn btn-primary" type="submit" id="botonguardarmodal">Guardar</button>
               </div>
           </form>
       </div>
@@ -118,6 +118,7 @@
         // Reference to the database
         const db = firebase.firestore();
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/draggable/1.0.0-beta.12/draggable.min.js" integrity="sha512-VTqyB/kLQGaTnF5kYAgeEFo8fwqdlAGNUQeoQi4EOmmBYTEQ/XrYC7lnzCvBBp1PR+1ODEQiT075oeUdPeFHwA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script src="assets/js/app.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -127,6 +128,7 @@
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
         crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.20/dist/sweetalert2.all.min.js"></script>
+        
 </body>
 
 </html>

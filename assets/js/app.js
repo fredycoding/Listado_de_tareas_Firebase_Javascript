@@ -3,6 +3,10 @@ const form = document.querySelector("#add-tarea-form");
 const tareascreadasContainer = document.getElementById("tareas-creadas");
 const tareasprocesoContainer = document.getElementById("tareas-proceso");
 const tareasfinalizadasContainer = document.getElementById("tareas-finalizadas");
+const botonguardarmodal = document.getElementById("botonguardarmodal");
+
+
+
 
 
 /* Funciones de Drag and Drop */
@@ -77,7 +81,7 @@ if (doc.data().estado == "finalizada"){
   <button class="btn btn-danger btn-delete" id="botondelete-${doc.id}" onclick="eliminar('${doc.id}')">
     🗑 Delete
   </button>
-  <button class="btn btn-primary btn-edit" data-id="${doc.id}">
+  <button class="btn btn-primary btn-edit" data-id="${doc.id}" onclick="readone('${doc.id}')">
     🖉 Edit
   </button>
 </div>
@@ -141,6 +145,37 @@ form.addEventListener("submit", e => {
 
  
 });
+
+// Lee un documento por id y se activa cuendo presionó el botón Edit
+function readone(iddoc){
+  var docRef = db.collection("tareasDb").doc(iddoc);
+
+  docRef.get().then((doc) => {
+      if (doc.exists) {
+          console.log("Document data:", doc.data());
+          document.getElementById("titulo").value = doc.data().titulo
+          document.getElementById("tarea").value = doc.data().tarea
+      } else {
+          // doc.data() will be undefined in this case
+          alert("No such document!");
+      }
+  }).catch((error) => {
+      console.log("Error getting document:", error);
+  });
+  $('#exampleModal').modal('show'); // Abrimos el modal
+  botonguardarmodal.textContent = "Update"
+
+}
+
+//Falta aca actualizar este botón
+botonguardarmodal.addEventListener('click', ()=>{
+  if( botonguardarmodal.textContent == "Update"){
+
+  }
+
+})
+
+
 
 // Realtime listener de Firebase
 function getRealtimeData() {

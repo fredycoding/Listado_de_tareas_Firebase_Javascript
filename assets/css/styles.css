@@ -12,7 +12,10 @@ background: #0079bf;
     display: flex;
     font-family: sans-serif;
     font-weight: bold;
-    gap: 50px; /*Espaciado entre los flex*/
+    gap: 25px; /*Espaciado entre los flex*/
+
+   
+   
   }
   
   .tareas-container {
@@ -119,3 +122,4 @@ background: #0079bf;
   text-align: center;
 
 }
+
