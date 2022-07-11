@@ -29,7 +29,7 @@ function onDrop(event) {
 
 }
 
-//tareascreadasContainer.innerHTML = "";
+
 
 // Renderiza las tareasa de acuerdo a su estado
 function renderTareas(doc) {
