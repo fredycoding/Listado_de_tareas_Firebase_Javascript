@@ -15,7 +15,29 @@
 </head>
 
 <body>
-    <h1>Tareas</h1>
+ 
+  <!-- Inicio del Nav Bar-->
+  <div class="container-fluid !direction !spacing">
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e8c39e;">
+        <div class="container-fluid texto2">
+            <a href="#" class="navbar-brand">Tareas</a>
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav">
+                    <a href="#" class="nav-item nav-link active" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">Crear Tarea</a>              
+                </div>
+                <div class="navbar-nav ms-auto">
+                    <a href="#" class="nav-item nav-link">Login</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+<!-- FIN del Nav Bar-->
+
 
     <div class="content">
         <div class="container-fluid">
@@ -39,12 +61,44 @@
           </div>
 
           
-        <form id="add-tarea-form" class="form-group">
-            <input type="text" name="titulo" placeholder="Título" class="form-control" />
-            <input type="text" name="tarea" placeholder="Descripción de la tarea" class="form-control" />
-            <button class="btn btn-sucess" type="submit">Submit</button>
-        </form>
+      
     </div>
+
+ <!-- Modal -->
+ <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Crear Tarea</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form id="add-tarea-form">
+              <div class="modal-body">
+
+                  <div>
+                      <label for="task-title">Título:</label>
+                      <input type="text" name="titulo" class="My First Title form-control"
+                          placeholder="Título de la tarea" />
+                  </div>
+                  <div class="mt-2">
+                      <label for="task-description">Descripción:</label>
+                      <textarea name="tarea" rows="3" class="form-control mb-3"
+                          placeholder="Ingrese la descripción de la tarea"></textarea>
+                  </div>
+
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                  <button class="btn btn-primary" type="submit">Guardar</button>
+              </div>
+          </form>
+      </div>
+  </div>
+</div>
+<!-- Fin Modal -->
+
+
+
 
     <script>
         // Your web app's Firebase configuration
