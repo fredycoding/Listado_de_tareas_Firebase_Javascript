@@ -115,15 +115,14 @@ form.addEventListener("submit", e => {
   form.tarea.value = "";
 });
 
-// Realtime listener
+// Realtime listener de Firebase
 function getRealtimeData() {
 
   db.collection("tareasDb").orderBy("titulo").onSnapshot(snapshot => {
 
       let changes = snapshot.docChanges();
       changes.forEach(change => {
-        if (change.type === "added") {
-          
+        if (change.type === "added") {          
           renderTareas(change.doc);
         } else if (change.type === "removed") {
           console.log("Elemento eliminado " + change.doc.id)
