@@ -9,8 +9,10 @@ const tareasfinalizadasContainer = document.getElementById("tareas-finalizadas")
 // Inicia el Drag
 function onDragStart(event) {   
   event.dataTransfer.setData('text/plain', event.target.id);
-  event.currentTarget.style.backgroundColor = 'yellow';
+  //event.currentTarget.style.backgroundColor = 'yellow';
 }
+
+
 function onDragOver(event) {
   event.preventDefault();
 }
@@ -91,8 +93,7 @@ function eliminar(iddoc){
 
 // Actualizamos la información cuando cambiamos de zona el div
 function update(iddoc, divestado){
-  alert(iddoc + " " + divestado)
-
+  //alert(iddoc + " " + divestado)
   if (divestado == "tareas-proceso"){
     db.collection("tareasDb").doc(iddoc).update({estado: "proceso"});
   }
