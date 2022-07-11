@@ -1,21 +1,27 @@
-/* Paleta de colores: https://colorhunt.co/palette/6e85b7b2c8dfc4d7e0f8f9d7*/
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Monofett&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=The+Nautigal:wght@700&display=swap');
+
 body {
-    background-color: #1C6EA4;
+background: #0079bf;
+
 }
 .example-parent {
-  background-color: #1C6EA4;
+  background-color: #0079bf;
     color: black;
     display: flex;
     font-family: sans-serif;
     font-weight: bold;
+    gap: 50px; /*Espaciado entre los flex*/
   }
   
-  .tareas-container-creadas {
-    background-color: #6E85B7;
+  .tareas-container {
+    background-color: #ebecf0;
+
     flex-basis: 100%;
     flex-grow: 1;
     padding: 10px;
-    border: 2px solid #1C6EA4;
+    border: 1px solid #ffffff;
     border-radius: 10px;
     margin-top: 5px;
   }
@@ -28,28 +34,89 @@ body {
     padding: 10px;
   }
   
-  .tareas-container-proceso {
-    background-color: #B2C8DF;
-    flex-basis: 100%;
-    flex-grow: 1;
-    padding: 10px;
-    border: 2px solid #1C6EA4;
-    border-radius: 10px;
-    margin-left: 2px;
-    margin-right: 2px;
-    margin-top: 5px;
-  }
+  .card {
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    border: none;
+    margin-bottom: 10px;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
 
-  .tareas-container-finalizadas {
-    background-color: #C4D7E0;
-    flex-basis: 100%;
-    flex-grow: 1;
-    padding: 10px;
-    border: 2px solid #1C6EA4;
-    border-radius: 10px;
-    margin-top: 5px;
-  }
 
-  .texto {
-  color: rgb(255, 255, 255)!important;
-  }
+.navbar {
+  background:  #0066a0;
+  
+}
+
+.btnCrear {
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+	background-color:#ffffff;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#666666;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+}
+.myButton:hover {
+	background:linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+	background-color:#f6f6f6;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+
+.titulobrand {
+  font-family: 'Monofett', cursive;
+  margin-left: 20px; 
+  color:#ffffff;
+}
+
+.titulocard {
+  font-family: 'Varela Round', sans-serif;
+  font-size: small;
+  color: #1d1d1d;
+  text-transform: uppercase;
+}
+
+.tareacard {
+  font-family: 'Varela Round', sans-serif;
+  font-size: small;
+  color: #1d1d1d;
+  text-transform: uppercase;
+}
+
+.btn-delete {
+  background-color: #d0d0d1;
+  border-color: #ffffff;
+  color: #1d1d1d;
+  font-size: small;
+}
+
+.btn-edit {
+  background-color: #026aa7;
+  border-color: #ffffff;
+  font-size: small;
+}
+
+
+.firma {
+  font-family: 'The Nautigal', cursive;
+  color: #ffffff;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+
+}

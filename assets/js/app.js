@@ -29,7 +29,7 @@ function onDrop(event) {
 
 }
 
-tareascreadasContainer.innerHTML = "";
+//tareascreadasContainer.innerHTML = "";
 
 // Renderiza las tareasa de acuerdo a su estado
 function renderTareas(doc) {
@@ -37,13 +37,13 @@ function renderTareas(doc) {
 // Pasa las tareas con el estado de "creada" a este container
 if (doc.data().estado == "creada"){
   tareascreadasContainer.innerHTML += `<div id="${doc.id}" class="card card-body mt-2 border-primary" draggable="true" ondragstart="onDragStart(event);">
-  <h3 class="h5">${doc.data().titulo}</h3>
+  <h3 class="h5 titulocard">${doc.data().titulo}</h3>
   <p>${doc.data().tarea}</p>
 <div>
-  <button class="btn btn-primary btn-delete" id="botondelete-${doc.id}" onclick="eliminar('${doc.id}')">
+  <button class="btn btn-danger btn-delete" id="botondelete-${doc.id}" onclick="eliminar('${doc.id}')">
     🗑 Delete
   </button>
-  <button class="btn btn-secondary btn-edit" data-id="${doc.id}">
+  <button class="btn btn-primary btn-edit" data-id="${doc.id}">
     🖉 Edit
   </button>
 </div>
@@ -54,13 +54,13 @@ if (doc.data().estado == "creada"){
 // Pasa las tareas con el estado de "proceso" a este container
 if (doc.data().estado == "proceso"){
   tareasprocesoContainer.innerHTML += `<div id="${doc.id}" class="card card-body mt-2 border-primary" draggable="true" ondragstart="onDragStart(event);">
-  <h3 class="h5">${doc.data().titulo}</h3>
+  <h3 class="h5 titulocard">${doc.data().titulo}</h3>
   <p>${doc.data().tarea}</p>
 <div>
-  <button class="btn btn-primary btn-delete" id="botondelete-${doc.id}" onclick="eliminar('${doc.id}')">
+  <button class="btn btn-danger btn-delete" id="botondelete-${doc.id}" onclick="eliminar('${doc.id}')">
     🗑 Delete
   </button>
-  <button class="btn btn-secondary btn-edit" data-id="${doc.id}">
+  <button class="btn btn-primary btn-edit" data-id="${doc.id}">
     🖉 Edit
   </button>
 </div>
@@ -71,18 +71,17 @@ if (doc.data().estado == "proceso"){
 // Pasa las tareas con el estado de "finalizada" a este container
 if (doc.data().estado == "finalizada"){
   tareasfinalizadasContainer.innerHTML += `<div id="${doc.id}" class="card card-body mt-2 border-primary" draggable="true" ondragstart="onDragStart(event);">
-  <h3 class="h5">${doc.data().titulo}</h3>
-  <p>${doc.data().tarea}</p>
+  <h3 class="h5 titulocard">${doc.data().titulo}</h3>
+  <p class="tareacard">${doc.data().tarea}</p>
 <div>
-  <button class="btn btn-primary btn-delete" id="botondelete-${doc.id}" onclick="eliminar('${doc.id}')">
+  <button class="btn btn-danger btn-delete" id="botondelete-${doc.id}" onclick="eliminar('${doc.id}')">
     🗑 Delete
   </button>
-  <button class="btn btn-secondary btn-edit" data-id="${doc.id}">
+  <button class="btn btn-primary btn-edit" data-id="${doc.id}">
     🖉 Edit
   </button>
 </div>
 </div>`;
-
 }  
 }
 

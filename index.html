@@ -19,25 +19,23 @@
 <body>
  
   <!-- Inicio del Nav Bar-->
-  <div class="container-fluid !direction !spacing">
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e8c39e;">
-        <div class="container-fluid texto2">
-            <a href="#" class="navbar-brand">Tareas</a>
+
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <h1 class="titulobrand">Tareas</h1>
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
-                <div class="navbar-nav">
-                    <a href="#" class="nav-item nav-link active" data-bs-toggle="modal"
-                        data-bs-target="#exampleModal">Crear Tarea</a>              
-                </div>
+              
                 <div class="navbar-nav ms-auto">
-                    <a href="#" class="nav-item nav-link">Login</a>
+                  <a href="#" class="btn btnCrear" data-bs-toggle="modal"
+                  data-bs-target="#exampleModal">Crear Tarea</a>   
                 </div>
             </div>
         </div>
     </nav>
-</div>
+
 <!-- FIN del Nav Bar-->
 
 
@@ -45,19 +43,21 @@
         <div class="container-fluid">
             <div class="example-parent">
               <!-- Zona de crear tarea-->
-              <div class="tareas-container-creadas" ondragover="onDragOver(event);" ondrop="onDrop(event);" id="tareas-creadas">
-                Zona de inicio
+              <div class="tareas-container" ondragover="onDragOver(event);" ondrop="onDrop(event);" id="tareas-creadas">
+                POR HACER
               </div>
         
               <!-- Zona de tarea en proceso-->
-              <div class="tareas-container-proceso" ondragover="onDragOver(event);" ondrop="onDrop(event);" id="tareas-proceso">
-                Zona 2
+              <div class="tareas-container" ondragover="onDragOver(event);" ondrop="onDrop(event);" id="tareas-proceso">
+                EN PROCESO
               </div>
         
               <!-- Zona de tarea finalizada-->
-              <div class="tareas-container-finalizadas" ondragover="onDragOver(event);" ondrop="onDrop(event);"
+              <div class="tareas-container" ondragover="onDragOver(event);" ondrop="onDrop(event);"
                 id="tareas-finalizadas">
-                Zona 3
+                <span class="ml-5">
+                  FINALIZADAS
+                </span> 
               </div>
             </div>
           </div>
@@ -99,7 +99,7 @@
 </div>
 <!-- Fin Modal -->
 
-
+<h3 class="firma">By Fredy A. Diaz B.</h3>
 
 
     <script>
