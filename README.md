@@ -7,7 +7,7 @@ To test the app, open index.html file in live server
 ## Author
 
 <blockquote>
-Fredy D. B.
+Fredy A. Diaz B.
 
 </blockquote>
 
