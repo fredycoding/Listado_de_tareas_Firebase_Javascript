@@ -126,9 +126,20 @@ function update(iddoc, divestado){
 // Cuando creamos un nuevo registro;
 form.addEventListener("submit", e => {
   e.preventDefault();
-  db.collection("tareasDb").add({ titulo: form.titulo.value, tarea: form.tarea.value, estado:"creada" });
-  form.titulo.value = "";
-  form.tarea.value = "";
+
+  if(form.titulo.value == "" || form.tarea.value == ""){
+    alert("Error: Los campos no deben estar vacios")
+
+  }else{
+    db.collection("tareasDb").add({ titulo: form.titulo.value, tarea: form.tarea.value, estado:"creada" });
+    form.titulo.value = "";
+    form.tarea.value = "";
+    $('#exampleModal').modal('hide');
+
+  }
+
+
+ 
 });
 
 // Realtime listener de Firebase
