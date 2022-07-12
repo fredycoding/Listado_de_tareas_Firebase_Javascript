@@ -1,7 +1,7 @@
-# Listado de Tareas con Firebase y Javascript
+# Listado de Tareas con Firebase y Javascript To Do
 
 ```
-To test the app, open index.html file in live server
+Para correr el proyecto solo abra index.html en live server
 ```
 
 ## Author
