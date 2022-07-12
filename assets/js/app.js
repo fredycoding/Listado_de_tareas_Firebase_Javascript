@@ -44,11 +44,11 @@ if (doc.data().estado == "creada"){
   <p class="tareacard" id="tareacard-${doc.id}">${doc.data().tarea}</p>
 <div>
   <button class="btn btn-danger btn-delete" id="botondelete-${doc.id}" onclick="eliminar('${doc.id}')">
-    🗑 Delete
+  <i class="icofont-trash"></i> Delete
   </button>
   <button class="btn btn-primary btn-edit" data-id="${doc.id}" onclick="readone('${doc.id}')" data-bs-toggle="modal"
   data-bs-target="#updateModal">
-    🖉 Edit
+  <i class="icofont-ui-edit"></i> Edit
   </button>
 </div>
 </div>`;
