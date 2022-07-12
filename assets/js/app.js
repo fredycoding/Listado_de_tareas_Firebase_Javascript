@@ -162,7 +162,7 @@ function readone(iddoc){
   });
 }
 
-//Falta aca actualizar este botón
+//BOTÓN UPDATE - Modal
 botonUpdateModal.addEventListener('click', ()=>{  
     let iddoc = document.getElementById("campo-id-modal")
     let tareafinal = document.getElementById("tareaupdate")
@@ -177,10 +177,6 @@ botonUpdateModal.addEventListener('click', ()=>{
     titulofinal.value = ""
 
 })
-
-
-    
-
 
 
 // Realtime listener de Firebase
