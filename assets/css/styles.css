@@ -92,7 +92,7 @@ background: #0079bf;
   font-family: 'Varela Round', sans-serif;
   font-size: small;
   color: #1d1d1d;
-  text-transform: uppercase;
+  text-transform:initial;
 }
 
 .btn-delete {
