@@ -3,10 +3,8 @@ const form = document.querySelector("#add-tarea-form");
 const tareascreadasContainer = document.getElementById("tareas-creadas");
 const tareasprocesoContainer = document.getElementById("tareas-proceso");
 const tareasfinalizadasContainer = document.getElementById("tareas-finalizadas");
-const botonguardarmodal = document.getElementById("botonguardarmodal");
-
-
-
+const botonupdatemodal = document.getElementById("botonupdatemodal");
+const botoncreartarea = document.getElementById("btn-crear-tarea");
 
 
 /* Funciones de Drag and Drop */
@@ -47,7 +45,7 @@ if (doc.data().estado == "creada"){
   <button class="btn btn-danger btn-delete" id="botondelete-${doc.id}" onclick="eliminar('${doc.id}')">
     🗑 Delete
   </button>
-  <button class="btn btn-primary btn-edit" data-id="${doc.id}">
+  <button class="btn btn-primary btn-edit" data-id="${doc.id}" onclick="readone('${doc.id}')">
     🖉 Edit
   </button>
 </div>
@@ -64,7 +62,7 @@ if (doc.data().estado == "proceso"){
   <button class="btn btn-danger btn-delete" id="botondelete-${doc.id}" onclick="eliminar('${doc.id}')">
     🗑 Delete
   </button>
-  <button class="btn btn-primary btn-edit" data-id="${doc.id}">
+  <button class="btn btn-primary btn-edit" data-id="${doc.id}" onclick="readone('${doc.id}')">
     🖉 Edit
   </button>
 </div>
@@ -130,6 +128,7 @@ function update(iddoc, divestado){
 // Cuando creamos un nuevo registro;
 form.addEventListener("submit", e => {
   e.preventDefault();
+  
 
   if(form.titulo.value == "" || form.tarea.value == ""){
     alert("Error: Los campos no deben estar vacios")
@@ -153,8 +152,9 @@ function readone(iddoc){
   docRef.get().then((doc) => {
       if (doc.exists) {
           console.log("Document data:", doc.data());
-          document.getElementById("titulo").value = doc.data().titulo
-          document.getElementById("tarea").value = doc.data().tarea
+          document.getElementById("tituloupdate").value = doc.data().titulo
+          document.getElementById("tareaupdate").value = doc.data().tarea
+          document.getElementById("campo-id-modal").value = iddoc
       } else {
           // doc.data() will be undefined in this case
           alert("No such document!");
@@ -162,16 +162,23 @@ function readone(iddoc){
   }).catch((error) => {
       console.log("Error getting document:", error);
   });
-  $('#exampleModal').modal('show'); // Abrimos el modal
-  botonguardarmodal.textContent = "Update"
+  $('#updateModal').modal('show'); // Abrimos el modal 
+
 
 }
 
 //Falta aca actualizar este botón
-botonguardarmodal.addEventListener('click', ()=>{
-  if( botonguardarmodal.textContent == "Update"){
+botonupdatemodal.addEventListener('click', ()=>{
+  
+    let iddoc = document.getElementById("campo-id-modal")
+    let tareafinal = document.getElementById("tareaupdate")
+    let titulofinal = document.getElementById("tituloupdate")
 
-  }
+    db.collection("tareasDb").doc(iddoc.value).update({titulo: titulofinal.value, tarea: tareafinal.value});
+    //Limpiamos campos
+    iddoc.value = ""
+    tareafinal.value = ""
+    titulofinal.value = ""    
 
 })
 

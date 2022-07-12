@@ -30,7 +30,7 @@
               
                 <div class="navbar-nav ms-auto">
                   <a href="#" class="btn btnCrear" data-bs-toggle="modal"
-                  data-bs-target="#exampleModal">Crear Tarea</a>   
+                  data-bs-target="#exampleModal" id="btn-crear-tarea">Crear Tarea</a>   
                 </div>
             </div>
         </div>
@@ -64,7 +64,7 @@
       
     </div>
 
- <!-- Modal -->
+ <!-- Modal CREAR TAREA-->
  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
       <div class="modal-content">
@@ -84,18 +84,55 @@
                       <label for="task-description">Descripción:</label>
                       <textarea name="tarea" rows="3" class="form-control mb-3"
                           placeholder="Ingrese la descripción de la tarea" id="tarea"></textarea>
-                  </div>
+                  </div>                  
+            
 
               </div>
               <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                  <button class="btn btn-primary" type="submit" id="botonguardarmodal">Guardar</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>                
+                  <button class="btn btn-warning" type="submit">Guardar</button>
               </div>
           </form>
       </div>
   </div>
 </div>
 <!-- Fin Modal -->
+
+
+<!-- Modal UPDATE TAREA-->
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Crear Tarea</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+          
+                <div class="modal-body">
+  
+                    <div>
+                        <label for="task-title">Título:</label>
+                        <input type="text" class="My First Title form-control"
+                            placeholder="Título de la tarea" id="tituloupdate"/>
+                    </div>
+                    <div class="mt-2">
+                        <label for="task-description">Descripción:</label>
+                        <textarea rows="3" class="form-control mb-3"
+                            placeholder="Ingrese la descripción de la tarea" id="tareaupdate"></textarea>
+                    </div>                  
+                    <input id="campo-id-modal" type="hidden">
+  
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>                
+                    <button class="btn btn-warning" type="submit" id="botonupdatemodal">Actualizar</button>
+                </div>
+            
+        </div>
+    </div>
+  </div>
+  <!-- Fin Modal -->
+
 
 <h3 class="firma">By Fredy A. Diaz B.</h3>
 
