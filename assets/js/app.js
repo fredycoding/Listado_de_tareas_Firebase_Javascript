@@ -3,7 +3,7 @@ const form = document.querySelector("#add-tarea-form");
 const tareascreadasContainer = document.getElementById("tareas-creadas");
 const tareasprocesoContainer = document.getElementById("tareas-proceso");
 const tareasfinalizadasContainer = document.getElementById("tareas-finalizadas");
-const botonupdatemodal = document.getElementById("botonupdatemodal");
+const botonUpdateModal = document.getElementById("botonupdatemodal");
 const botoncreartarea = document.getElementById("btn-crear-tarea");
 
 
@@ -39,13 +39,14 @@ function renderTareas(doc) {
 // Pasa las tareas con el estado de "creada" a este container
 if (doc.data().estado == "creada"){
   tareascreadasContainer.innerHTML += `<div id="${doc.id}" class="card card-body mt-2 border-primary" draggable="true" ondragstart="onDragStart(event);">
-  <h3 class="h5 titulocard">${doc.data().titulo}</h3>
-  <p>${doc.data().tarea}</p>
+  <h3 class="h5 titulocard" id="titulocard-${doc.id}">${doc.data().titulo}</h3>
+  <p class="tareacard" id="tareacard-${doc.id}">${doc.data().tarea}</p>
 <div>
   <button class="btn btn-danger btn-delete" id="botondelete-${doc.id}" onclick="eliminar('${doc.id}')">
     🗑 Delete
   </button>
-  <button class="btn btn-primary btn-edit" data-id="${doc.id}" onclick="readone('${doc.id}')">
+  <button class="btn btn-primary btn-edit" data-id="${doc.id}" onclick="readone('${doc.id}')" data-bs-toggle="modal"
+  data-bs-target="#updateModal">
     🖉 Edit
   </button>
 </div>
@@ -56,13 +57,14 @@ if (doc.data().estado == "creada"){
 // Pasa las tareas con el estado de "proceso" a este container
 if (doc.data().estado == "proceso"){
   tareasprocesoContainer.innerHTML += `<div id="${doc.id}" class="card card-body mt-2 border-primary" draggable="true" ondragstart="onDragStart(event);">
-  <h3 class="h5 titulocard">${doc.data().titulo}</h3>
-  <p>${doc.data().tarea}</p>
+  <h3 class="h5 titulocard" id="titulocard-${doc.id}">${doc.data().titulo}</h3>
+  <p class="tareacard" id="tareacard-${doc.id}">${doc.data().tarea}</p>
 <div>
   <button class="btn btn-danger btn-delete" id="botondelete-${doc.id}" onclick="eliminar('${doc.id}')">
     🗑 Delete
   </button>
-  <button class="btn btn-primary btn-edit" data-id="${doc.id}" onclick="readone('${doc.id}')">
+  <button class="btn btn-primary btn-edit" data-id="${doc.id}" onclick="readone('${doc.id}')" data-bs-toggle="modal"
+  data-bs-target="#updateModal">
     🖉 Edit
   </button>
 </div>
@@ -73,13 +75,14 @@ if (doc.data().estado == "proceso"){
 // Pasa las tareas con el estado de "finalizada" a este container
 if (doc.data().estado == "finalizada"){
   tareasfinalizadasContainer.innerHTML += `<div id="${doc.id}" class="card card-body mt-2 border-primary" draggable="true" ondragstart="onDragStart(event);">
-  <h3 class="h5 titulocard">${doc.data().titulo}</h3>
-  <p class="tareacard">${doc.data().tarea}</p>
+  <h3 class="h5 titulocard" id="titulocard-${doc.id}">${doc.data().titulo}</h3>
+  <p class="tareacard" id="tareacard-${doc.id}">${doc.data().tarea}</p>
 <div>
   <button class="btn btn-danger btn-delete" id="botondelete-${doc.id}" onclick="eliminar('${doc.id}')">
     🗑 Delete
   </button>
-  <button class="btn btn-primary btn-edit" data-id="${doc.id}" onclick="readone('${doc.id}')">
+  <button class="btn btn-primary btn-edit" data-id="${doc.id}" onclick="readone('${doc.id}')" data-bs-toggle="modal"
+  data-bs-target="#updateModal">
     🖉 Edit
   </button>
 </div>
@@ -128,7 +131,6 @@ function update(iddoc, divestado){
 // Cuando creamos un nuevo registro;
 form.addEventListener("submit", e => {
   e.preventDefault();
-  
 
   if(form.titulo.value == "" || form.tarea.value == ""){
     alert("Error: Los campos no deben estar vacios")
@@ -138,11 +140,7 @@ form.addEventListener("submit", e => {
     form.titulo.value = "";
     form.tarea.value = "";
     $('#exampleModal').modal('hide');
-
-  }
-
-
- 
+  } 
 });
 
 // Lee un documento por id y se activa cuendo presionó el botón Edit
@@ -162,24 +160,26 @@ function readone(iddoc){
   }).catch((error) => {
       console.log("Error getting document:", error);
   });
-  $('#updateModal').modal('show'); // Abrimos el modal 
-
-
 }
 
 //Falta aca actualizar este botón
-botonupdatemodal.addEventListener('click', ()=>{
-  
+botonUpdateModal.addEventListener('click', ()=>{  
     let iddoc = document.getElementById("campo-id-modal")
     let tareafinal = document.getElementById("tareaupdate")
     let titulofinal = document.getElementById("tituloupdate")
-
     db.collection("tareasDb").doc(iddoc.value).update({titulo: titulofinal.value, tarea: tareafinal.value});
+    
+    // Actualizamos los datos de la card seleccionada en el DOM
+    document.getElementById(`"titulocard-${iddoc.value}"`) = titulofinal.value
+    document.getElementById(`"tareacard-${iddoc.value}"`) = tareafinal.value
+
     //Limpiamos campos
     iddoc.value = ""
     tareafinal.value = ""
-    titulofinal.value = ""    
+    titulofinal.value = ""
 
+   $('#updateModal').modal('hide');  
+   
 })
 
 
