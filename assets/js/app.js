@@ -180,9 +180,10 @@ botonUpdateModal.addEventListener('click', ()=>{
 
 
 // Realtime listener de Firebase
-function getRealtimeData() {
+async function getRealtimeData() {
 
-  db.collection("tareasDb").orderBy("titulo").onSnapshot(snapshot => {
+  try{
+    const datos = await db.collection("tareasDb").orderBy("titulo").onSnapshot(snapshot => {
 
       let changes = snapshot.docChanges();
       changes.forEach(change => {
@@ -202,5 +203,14 @@ function getRealtimeData() {
         }
       });
     });
+
+  } catch(err){
+    alert("Error: " + err)
+  }
+
+ 
 }
+
 getRealtimeData();
+
+

@@ -9,6 +9,8 @@
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-firestore.js"></script>
+       <!-- ICOFONT -->
+    <link rel="stylesheet" href="assets/css/icofont/icofont.min.css">
 
     <link rel="stylesheet" href="assets/css/styles.css" />
     <title>Aplicación Tareas by FADB</title>
@@ -30,7 +32,7 @@
               
                 <div class="navbar-nav ms-auto">
                   <a href="#" class="btn btnCrear" data-bs-toggle="modal"
-                  data-bs-target="#exampleModal" id="btn-crear-tarea">Crear Tarea</a>   
+                  data-bs-target="#exampleModal" id="btn-crear-tarea"><i class="icofont-tasks"></i> Crear Tarea</a>   
                 </div>
             </div>
         </div>
@@ -44,19 +46,19 @@
             <div class="example-parent">
               <!-- Zona de crear tarea-->
               <div class="tareas-container" ondragover="onDragOver(event);" ondrop="onDrop(event);" id="tareas-creadas">
-                POR HACER
+                <i class="icofont-tasks-alt"></i> POR HACER
               </div>
         
               <!-- Zona de tarea en proceso-->
               <div class="tareas-container" ondragover="onDragOver(event);" ondrop="onDrop(event);" id="tareas-proceso">
-                EN PROCESO
+                <i class="icofont-tools-alt-2"></i> EN PROCESO
               </div>
         
               <!-- Zona de tarea finalizada-->
               <div class="tareas-container" ondragover="onDragOver(event);" ondrop="onDrop(event);"
                 id="tareas-finalizadas">
                 <span class="ml-5">
-                  FINALIZADAS
+                    <i class="icofont-check-circled"></i> FINALIZADAS
                 </span> 
               </div>
             </div>
@@ -69,7 +71,7 @@
   <div class="modal-dialog">
       <div class="modal-content">
           <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Crear Tarea</h5>
+              <h5 class="modal-title" id="exampleModalLabel"><i class="icofont-tasks"></i> Crear Tarea</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <form id="add-tarea-form">
@@ -124,7 +126,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>                
-                    <button class="btn btn-warning" type="submit" id="botonupdatemodal">Actualizar</button>
+                    <button class="btn btn-warning" type="submit" id="botonupdatemodal"><i class="icofont-refresh"></i> Actualizar</button>
                 </div>
             
         </div>
