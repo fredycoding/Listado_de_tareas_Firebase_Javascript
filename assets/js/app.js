@@ -190,12 +190,11 @@ function getRealtimeData() {
 
       let changes = snapshot.docChanges();
       changes.forEach(change => {
-        console.log("Nuevos cambios: " + change.type)
-
+        //console.log("Nuevos cambios: " + change.type)
         if (change.type === "added") { // Cuando hay nuevos registros         
           renderTareas(change.doc);
         } else if (change.type === "removed") { // Cuando hay eliminación
-          console.log("Elemento eliminado " + change.doc.id)
+          //console.log("Elemento eliminado " + change.doc.id)
           const element = document.getElementById(change.doc.id); //Traigo el elemento eliminado
           element.remove(); // Elimina el div por el id     
                
