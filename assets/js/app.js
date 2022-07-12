@@ -20,10 +20,11 @@ function onDragOver(event) {
 }
 
 //Inicia el Drop
-function onDrop(event) {
+function onDrop(event) { 
   const id = event.dataTransfer.getData('text'); // id del elemento que se transfiere                      
   const draggableElement = document.getElementById(id); // Se obtiene el html del elemento que se transfiere 
-  const dropzone = event.target; // Div donde se transfiere el elemento    
+  const dropzone = event.target; // Div donde se transfiere el elemento 
+   
   update(id, dropzone.id)
            
   dropzone.appendChild(draggableElement); // Se suma el elemento a la zona de transferencia
@@ -109,17 +110,19 @@ function eliminar(iddoc){
 
 // Actualizamos la información cuando cambiamos de zona el div
 function update(iddoc, divestado){
+  console.log("divestado: " + divestado)
+  
   //alert(iddoc + " " + divestado)
   if (divestado == "tareas-proceso"){
-    db.collection("tareasDb").doc(iddoc).update({estado: "proceso"});
+     db.collection("tareasDb").doc(iddoc).update({estado: "proceso"});
   }
   if (divestado == "tareas-finalizadas"){
-    db.collection("tareasDb").doc(iddoc).update({estado: "finalizada"});
+     db.collection("tareasDb").doc(iddoc).update({estado: "finalizada"});
   }  
   if (divestado == "tareas-creadas"){
-    db.collection("tareasDb").doc(iddoc).update({estado: "creada"});
+   db.collection("tareasDb").doc(iddoc).update({estado: "creada"});
   }  
-
+  
 } // Fin update
 
 
