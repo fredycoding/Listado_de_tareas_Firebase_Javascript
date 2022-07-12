@@ -168,19 +168,18 @@ botonUpdateModal.addEventListener('click', ()=>{
     let tareafinal = document.getElementById("tareaupdate")
     let titulofinal = document.getElementById("tituloupdate")
     db.collection("tareasDb").doc(iddoc.value).update({titulo: titulofinal.value, tarea: tareafinal.value});
-    
-    // Actualizamos los datos de la card seleccionada en el DOM
-    document.getElementById(`"titulocard-${iddoc.value}"`) = titulofinal.value
-    document.getElementById(`"tareacard-${iddoc.value}"`) = tareafinal.value
+   
+   $('#updateModal').modal('hide');  // Escondo el modal del update
 
-    //Limpiamos campos
+    //Limpiamos campos del form del modal
     iddoc.value = ""
     tareafinal.value = ""
     titulofinal.value = ""
 
-   $('#updateModal').modal('hide');  
-   
 })
+
+
+    
 
 
 
@@ -191,12 +190,20 @@ function getRealtimeData() {
 
       let changes = snapshot.docChanges();
       changes.forEach(change => {
-        if (change.type === "added") {          
+        console.log("Nuevos cambios: " + change.type)
+
+        if (change.type === "added") { // Cuando hay nuevos registros         
           renderTareas(change.doc);
-        } else if (change.type === "removed") {
+        } else if (change.type === "removed") { // Cuando hay eliminación
           console.log("Elemento eliminado " + change.doc.id)
           const element = document.getElementById(change.doc.id); //Traigo el elemento eliminado
-          element.remove(); // Elimina el div por el id          
+          element.remove(); // Elimina el div por el id     
+               
+        } else if(change.type === "modified"){ // Cuando hay cambios de actualización
+          const element = document.getElementById(change.doc.id); //Traigo el elemento actualizado
+          element.remove(); // Elimina el div por el id     
+          renderTareas(change.doc);
+       
         }
       });
     });
