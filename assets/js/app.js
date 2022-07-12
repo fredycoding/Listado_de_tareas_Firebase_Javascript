@@ -104,11 +104,7 @@ function eliminar(iddoc){
       db.collection("tareasDb").doc(iddoc).delete();
       Swal.fire('Tarea eliminada!', '', 'success')
     } 
-  })
-
-
-
-  
+  })  
 } // Fin eliminar
 
 // Actualizamos la información cuando cambiamos de zona el div
