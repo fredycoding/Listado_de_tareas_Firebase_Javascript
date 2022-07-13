@@ -9,7 +9,7 @@ const botonUpdateTraslado = document.getElementById("botonUpdateTraslado")
 
 /* Funciones de Drag and Drop */
 // Inicia el Drag
-function onDragStart(event) {   
+function onDragStart(event) {
   event.dataTransfer.setData('text/plain', event.target.id);
   //event.currentTarget.style.backgroundColor = 'yellow';
 }
@@ -20,37 +20,37 @@ function onDragOver(event) {
 }
 
 //Inicia el Drop
-function onDrop(event) { 
+function onDrop(event) {
   const id = event.dataTransfer.getData('text'); // id del elemento que se transfiere                      
   const draggableElement = document.getElementById(id); // Se obtiene el html del elemento que se transfiere 
   const dropzone = event.target; // Div donde se transfiere el elemento 
-   
+
   update(id, dropzone.id)
-           
+
   dropzone.appendChild(draggableElement); // Se suma el elemento a la zona de transferencia
   event.dataTransfer.clearData();
 
 }
 
 // Recibe el id del documento por el boton compartir
-function enviarIdTraslado(idTraslado){
-document.getElementById('campo-id-traslado').value = idTraslado
+function enviarIdTraslado(idTraslado) {
+  document.getElementById('campo-id-traslado').value = idTraslado
 }
 
 // Botón del Modal de Traslado
-botonUpdateTraslado.addEventListener('click', ()=>{
+botonUpdateTraslado.addEventListener('click', () => {
   //Traigo el id del campo oculto del modal
   const valorIdTraslado = document.getElementById('campo-id-traslado').value
   //Traigo el valor del select
   const valorSelect = document.getElementById('selectTraslado').value
-  
+
   let valorSelectFinal = ""
   if (valorSelect == "PORHACER") valorSelectFinal = "creada"
   if (valorSelect == "ENPROCESO") valorSelectFinal = "proceso"
   if (valorSelect == "FINALIZADA") valorSelectFinal = "finalizada"
 
   //Hago el update en la base de datos
-  db.collection("tareasDb").doc(valorIdTraslado).update({estado: valorSelectFinal});
+  db.collection("tareasDb").doc(valorIdTraslado).update({ estado: valorSelectFinal });
 
   $('#trasladoMobileModal').modal('hide');
 
@@ -81,25 +81,25 @@ data-bs-target="#updateModal">
 </div>
 </div>`;
 
-// Pasa las tareas con el estado de "creada" a este container
-if (doc.data().estado == "creada"){
-  tareascreadasContainer.innerHTML += tarjetaHtml
-}
+  // Pasa las tareas con el estado de "creada" a este container
+  if (doc.data().estado == "creada") {
+    tareascreadasContainer.innerHTML += tarjetaHtml
+  }
 
-// Pasa las tareas con el estado de "proceso" a este container
-if (doc.data().estado == "proceso"){
-  tareasprocesoContainer.innerHTML += tarjetaHtml
-}
+  // Pasa las tareas con el estado de "proceso" a este container
+  if (doc.data().estado == "proceso") {
+    tareasprocesoContainer.innerHTML += tarjetaHtml
+  }
 
-// Pasa las tareas con el estado de "finalizada" a este container
-if (doc.data().estado == "finalizada"){
-  tareasfinalizadasContainer.innerHTML += tarjetaHtml
-}  
+  // Pasa las tareas con el estado de "finalizada" a este container
+  if (doc.data().estado == "finalizada") {
+    tareasfinalizadasContainer.innerHTML += tarjetaHtml
+  }
 }
 
 //Eliminamos cuando presionamos el botón eliminar, enviamos un sweet alert
 //para confirmar el cambio
-function eliminar(iddoc){ 
+function eliminar(iddoc) {
   Swal.fire({
     title: 'Esta seguro que desea eliminar esta tarea?',
     showDenyButton: true,
@@ -110,22 +110,22 @@ function eliminar(iddoc){
     if (result.isConfirmed) {
       db.collection("tareasDb").doc(iddoc).delete();
       Swal.fire('Tarea eliminada!', '', 'success')
-    } 
-  })  
+    }
+  })
 } // Fin eliminar
 
 // Actualizamos la información cuando cambiamos de zona el div
-function update(iddoc, divestado){
-  if (divestado == "tareas-proceso"){
-     db.collection("tareasDb").doc(iddoc).update({estado: "proceso"});
+function update(iddoc, divestado) {
+  if (divestado == "tareas-proceso") {
+    db.collection("tareasDb").doc(iddoc).update({ estado: "proceso" });
   }
-  if (divestado == "tareas-finalizadas"){
-     db.collection("tareasDb").doc(iddoc).update({estado: "finalizada"});
-  }  
-  if (divestado == "tareas-creadas"){
-   db.collection("tareasDb").doc(iddoc).update({estado: "creada"});
-  }  
-  
+  if (divestado == "tareas-finalizadas") {
+    db.collection("tareasDb").doc(iddoc).update({ estado: "finalizada" });
+  }
+  if (divestado == "tareas-creadas") {
+    db.collection("tareasDb").doc(iddoc).update({ estado: "creada" });
+  }
+
 } // Fin update
 
 
@@ -134,57 +134,61 @@ function update(iddoc, divestado){
 form.addEventListener("submit", e => {
   e.preventDefault();
 
-  if(form.titulo.value == "" || form.tarea.value == ""){
+  if (form.titulo.value == "" || form.tarea.value == "") {
     alert("Error: Los campos no deben estar vacios")
 
-  }else{
-    db.collection("tareasDb").add({ titulo: form.titulo.value, tarea: form.tarea.value, estado:"creada" });
+  } else {
+    db.collection("tareasDb").add({ titulo: form.titulo.value, tarea: form.tarea.value, estado: "creada" });
     form.titulo.value = "";
     form.tarea.value = "";
     $('#exampleModal').modal('hide');
-  } 
+  }
 });
 
 // Lee un documento por id y se activa cuendo presionó el botón Edit
-function readone(iddoc){
+function readone(iddoc) {
   var docRef = db.collection("tareasDb").doc(iddoc);
 
   docRef.get().then((doc) => {
-      if (doc.exists) {
-          console.log("Document data:", doc.data());
-          document.getElementById("tituloupdate").value = doc.data().titulo
-          document.getElementById("tareaupdate").value = doc.data().tarea
-          document.getElementById("campo-id-modal").value = iddoc
-      } else {
-          // doc.data() will be undefined in this case
-          alert("No such document!");
-      }
+    if (doc.exists) {
+      console.log("Document data:", doc.data());
+      document.getElementById("tituloupdate").value = doc.data().titulo
+      document.getElementById("tareaupdate").value = doc.data().tarea
+      document.getElementById("campo-id-modal").value = iddoc
+    } else {
+      // doc.data() will be undefined in this case
+      alert("No such document!");
+    }
   }).catch((error) => {
-      console.log("Error getting document:", error);
+    console.log("Error getting document:", error);
   });
 }
 
 //BOTÓN UPDATE - Modal
-botonUpdateModal.addEventListener('click', ()=>{  
-    let iddoc = document.getElementById("campo-id-modal")
-    let tareafinal = document.getElementById("tareaupdate")
-    let titulofinal = document.getElementById("tituloupdate")
-    db.collection("tareasDb").doc(iddoc.value).update({titulo: titulofinal.value, tarea: tareafinal.value});
-   
-   $('#updateModal').modal('hide');  // Escondo el modal del update
+botonUpdateModal.addEventListener('click', () => {
+  let iddoc = document.getElementById("campo-id-modal")
+  let tareafinal = document.getElementById("tareaupdate")
+  let titulofinal = document.getElementById("tituloupdate")
+
+  if (titulofinal.value == "" || tareafinal.value) {
+    alert("NO PUEDE DEJAR LOS CAMPOS VACIOS")
+  } else {
+    db.collection("tareasDb").doc(iddoc.value).update({ titulo: titulofinal.value, tarea: tareafinal.value });
+
+    $('#updateModal').modal('hide');  // Escondo el modal del update
 
     //Limpiamos campos del form del modal
     iddoc.value = ""
     tareafinal.value = ""
     titulofinal.value = ""
-
+  }
 })
 
 
 // Realtime listener de Firebase
 async function getRealtimeData() {
 
-  try{
+  try {
     const datos = await db.collection("tareasDb").orderBy("titulo").onSnapshot(snapshot => {
 
       let changes = snapshot.docChanges();
@@ -196,21 +200,21 @@ async function getRealtimeData() {
           //console.log("Elemento eliminado " + change.doc.id)
           const element = document.getElementById(change.doc.id); //Traigo el elemento eliminado
           element.remove(); // Elimina el div por el id     
-               
-        } else if(change.type === "modified"){ // Cuando hay cambios de actualización
+
+        } else if (change.type === "modified") { // Cuando hay cambios de actualización
           const element = document.getElementById(change.doc.id); //Traigo el elemento actualizado
           element.remove(); // Elimina el div por el id     
           renderTareas(change.doc);
-       
+
         }
       });
     });
 
-  } catch(err){
+  } catch (err) {
     alert("Error: " + err)
   }
 
- 
+
 }
 
 getRealtimeData();
