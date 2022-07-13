@@ -80,6 +80,7 @@ data-bs-target="#updateModal">
 </button>
 </div>
 </div>`;
+
 // Pasa las tareas con el estado de "creada" a este container
 if (doc.data().estado == "creada"){
   tareascreadasContainer.innerHTML += tarjetaHtml
@@ -88,7 +89,6 @@ if (doc.data().estado == "creada"){
 // Pasa las tareas con el estado de "proceso" a este container
 if (doc.data().estado == "proceso"){
   tareasprocesoContainer.innerHTML += tarjetaHtml
-
 }
 
 // Pasa las tareas con el estado de "finalizada" a este container
