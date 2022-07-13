@@ -8,7 +8,7 @@ const botoncreartarea = document.getElementById("btn-crear-tarea");
 const botonUpdateTraslado = document.getElementById("botonUpdateTraslado")
 
 /* Funciones de Drag and Drop */
-// Inicia el Drag
+/**** FUNCIÓN del DRAG o arrastre ***/
 function onDragStart(event) {
   event.dataTransfer.setData('text/plain', event.target.id);
   //event.currentTarget.style.backgroundColor = 'yellow';
@@ -19,7 +19,7 @@ function onDragOver(event) {
   event.preventDefault();
 }
 
-//Inicia el Drop
+/**** FUNCIÓN del DROP ***/
 function onDrop(event) {
   const id = event.dataTransfer.getData('text'); // id del elemento que se transfiere                      
   const draggableElement = document.getElementById(id); // Se obtiene el html del elemento que se transfiere 
@@ -32,12 +32,11 @@ function onDrop(event) {
 
 }
 
-// Recibe el id del documento por el boton compartir
-function enviarIdTraslado(idTraslado) {
-  document.getElementById('campo-id-traslado').value = idTraslado
-}
+/**** Función de Flecha Recibe el id del documento por el boton compartir ****/
+const enviarIdTraslado= (idTraslado)=> document.getElementById('campo-id-traslado').value = idTraslado
 
-// Botón del Modal de Traslado
+
+/******* BOTÓN MODAL DE TRASLADO - Activo para móviles ***************/
 botonUpdateTraslado.addEventListener('click', () => {
   //Traigo el id del campo oculto del modal
   const valorIdTraslado = document.getElementById('campo-id-traslado').value
@@ -56,9 +55,10 @@ botonUpdateTraslado.addEventListener('click', () => {
 
 })
 
-// Renderiza las tareasa de acuerdo a su estado
+/******* RENDERIZA LAS TAREAS - Las ingresa al container de acuerdo al estado ***************/
 function renderTareas(doc) {
 
+  //Codigo html de la tarjeta qe creo dinamicamente
   let tarjetaHtml = `<div id="${doc.id}" class="card card-body mt-2 border-primary" draggable="true" ondragstart="onDragStart(event);">
 <div class="row">
   <div class="col">
@@ -218,13 +218,6 @@ async function getRealtimeData() {
 }
 
 getRealtimeData();
-
-function myFunction() {
-  setTimeout(abraLoader(),1000)
-}
-
-
-const abraloader = () => myFunction()
 
 
 
