@@ -3,74 +3,86 @@
 @import url('https://fonts.googleapis.com/css2?family=The+Nautigal:wght@700&display=swap');
 
 body {
-background: #0079bf;
+  background: #0079bf;
 
 }
-.example-parent {
+
+.contenedor-principal {
   background-color: #0079bf;
-    color: black;
-    display: flex;
-    font-family: sans-serif;
-    font-weight: bold;
-    gap: 25px; /*Espaciado entre los flex*/   
+  color: black;
+  display: flex;
+  font-family: sans-serif;
+  font-weight: bold;
+  gap: 25px;
+  /*Espaciado entre los flex*/
+}
+
+/* Responsive layout - makes a one column layout instead of a two-column layout */
+@media (max-width: 800px) {
+  .contenedor-principal {
+    flex-direction: column;
   }
-  
-  .tareas-container {
-    background-color: #ebecf0;
-    flex-basis: 100%;
-    flex-grow: 1;
-    padding: 10px;
-    border: 1px solid #ffffff;
-    border-radius: 10px;
-    margin-top: 5px;
-  }  
- 
-  .card {
-    border-radius: 5px;
-    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
-    box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
-    border: none;
-    margin-bottom: 10px;
-    -webkit-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
+}
+
+
+.tareas-container {
+  background-color: #ebecf0;
+  flex-basis: 100%;
+  flex-grow: 1;
+  padding: 10px;
+  border: 1px solid #ffffff;
+  border-radius: 10px;
+  margin-top: 5px;
+}
+
+.card {
+  border-radius: 5px;
+  -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+  box-shadow: 0 1px 2.94px 0.06px rgba(4, 26, 55, 0.16);
+  border: none;
+  margin-bottom: 10px;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 
 .navbar {
-  background:  #0066a0;
+  background: #0066a0;
   border-color: #ffffff;
 }
 
 .btnCrear {
-	box-shadow:inset 0px 1px 0px 0px #ffffff;
-	background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
-	background-color:#ffffff;
-	
-	border:1px solid #dcdcdc;
-	display:inline-block;
-	cursor:pointer;
-	color:#666666;
-	font-family:Arial;
-	font-size:15px;
-	font-weight:bold;
-	padding:6px 24px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #ffffff;
+  box-shadow: inset 0px 1px 0px 0px #ffffff;
+  background: linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+  background-color: #ffffff;
+
+  border: 1px solid #dcdcdc;
+  display: inline-block;
+  cursor: pointer;
+  color: #666666;
+  font-family: Arial;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 6px 24px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #ffffff;
 }
+
 .myButton:hover {
-	background:linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
-	background-color:#f6f6f6;
+  background: linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+  background-color: #f6f6f6;
 }
+
 .myButton:active {
-	position:relative;
-	top:1px;
+  position: relative;
+  top: 1px;
 }
 
 
 .titulobrand {
   font-family: 'Monofett', cursive;
-  margin-left: 20px; 
-  color:#ffffff;
+  margin-left: 20px;
+  color: #ffffff;
 }
 
 .titulocard {
@@ -84,7 +96,7 @@ background: #0079bf;
   font-family: 'Varela Round', sans-serif;
   font-size: small;
   color: #1d1d1d;
-  text-transform:initial;
+  text-transform: initial;
 }
 
 .btn-delete {
@@ -123,4 +135,3 @@ background: #0079bf;
   text-align: center;
 
 }
-
