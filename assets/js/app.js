@@ -5,7 +5,7 @@ const tareasprocesoContainer = document.getElementById("tareas-proceso");
 const tareasfinalizadasContainer = document.getElementById("tareas-finalizadas");
 const botonUpdateModal = document.getElementById("botonupdatemodal");
 const botoncreartarea = document.getElementById("btn-crear-tarea");
-
+const botonUpdateTraslado = document.getElementById("botonUpdateTraslado")
 
 /* Funciones de Drag and Drop */
 // Inicia el Drag
@@ -32,7 +32,29 @@ function onDrop(event) {
 
 }
 
+// Recibe el id del documento por el boton compartir
+function enviarIdTraslado(idTraslado){
+document.getElementById('campo-id-traslado').value = idTraslado
+}
 
+// Botón del Modal de Traslado
+botonUpdateTraslado.addEventListener('click', ()=>{
+  //Traigo el id del campo oculto del modal
+  const valorIdTraslado = document.getElementById('campo-id-traslado').value
+  //Traigo el valor del select
+  const valorSelect = document.getElementById('selectTraslado').value
+  
+  let valorSelectFinal = ""
+  if (valorSelect == "PORHACER") valorSelectFinal = "creada"
+  if (valorSelect == "ENPROCESO") valorSelectFinal = "proceso"
+  if (valorSelect == "FINALIZADA") valorSelectFinal = "finalizada"
+
+  //Hago el update en la base de datos
+  db.collection("tareasDb").doc(valorIdTraslado).update({estado: valorSelectFinal});
+
+  $('#trasladoMobileModal').modal('hide');
+
+})
 
 // Renderiza las tareasa de acuerdo a su estado
 function renderTareas(doc) {
@@ -44,7 +66,7 @@ function renderTareas(doc) {
   </div>
   <div class="col div-boton-compartir">
   <button class="btn boton-compartir float-end" data-bs-toggle="modal"
-  data-bs-target="#trasladoMobileModal"><i class="icofont-share"></i></button>
+  data-bs-target="#trasladoMobileModal" onclick="enviarIdTraslado('${doc.id}')"><i class="icofont-share"></i></button>
   </div>
 </div> 
 <p class="tareacard" id="tareacard-${doc.id}">${doc.data().tarea}</p>  
