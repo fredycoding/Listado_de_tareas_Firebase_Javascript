@@ -40,7 +40,6 @@
 
 <!-- FIN del Nav Bar-->
 
-
     <div class="content">
         <div class="container-fluid">
             <div class="contenedor-principal">
@@ -133,6 +132,37 @@
     </div>
   </div>
   <!-- Fin Modal -->
+
+  <!-- Modal TRASLADO MOBILE-->
+<div class="modal fade" id="trasladoMobileModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Trasladar Tarea</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+          
+                <div class="modal-body">
+  
+                    <select class="form-control mobileSelect" id="selectTraslado">
+                        <option value="PORHACER">POR HACER</option>
+                        <option value="ENPROCESO">EN PROCESO</option>
+                        <option value="FINALIZADA">FINALIZADA</option>                       
+                    </select>
+                    <input id="campo-id-traslado" type="hidden">
+  
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>                
+                    <button class="btn btn-info" id="botonUpdateTraslado"><i class="icofont-exit"></i> Trasladar</button>
+                </div>
+            
+        </div>
+    </div>
+  </div>
+  <!-- Fin Modal -->
+
+
 
  <!-- Firma y copy solo visible en PC de escritorio con d-none d-sm-none d-md-block-->
 <h3 class="firma d-none d-sm-none d-md-block">By Fredy A. Diaz B.</h3>

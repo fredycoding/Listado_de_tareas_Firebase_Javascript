@@ -37,57 +37,41 @@ function onDrop(event) {
 // Renderiza las tareasa de acuerdo a su estado
 function renderTareas(doc) {
 
-// Pasa las tareas con el estado de "creada" a este container
-if (doc.data().estado == "creada"){
-  tareascreadasContainer.innerHTML += `<div id="${doc.id}" class="card card-body mt-2 border-primary" draggable="true" ondragstart="onDragStart(event);">
+  let tarjetaHtml = `<div id="${doc.id}" class="card card-body mt-2 border-primary" draggable="true" ondragstart="onDragStart(event);">
+<div class="row">
+  <div class="col">
   <h3 class="h5 titulocard" id="titulocard-${doc.id}">${doc.data().titulo}</h3>
-  <p class="tareacard" id="tareacard-${doc.id}">${doc.data().tarea}</p>
+  </div>
+  <div class="col div-boton-compartir">
+  <button class="btn boton-compartir float-end" data-bs-toggle="modal"
+  data-bs-target="#trasladoMobileModal"><i class="icofont-share"></i></button>
+  </div>
+</div> 
+<p class="tareacard" id="tareacard-${doc.id}">${doc.data().tarea}</p>  
 <div>
-  <button class="btn btn-danger btn-delete" id="botondelete-${doc.id}" onclick="eliminar('${doc.id}')">
-  <i class="icofont-trash"></i> Delete
-  </button>
-  <button class="btn btn-primary btn-edit" data-id="${doc.id}" onclick="readone('${doc.id}')" data-bs-toggle="modal"
-  data-bs-target="#updateModal">
-  <i class="icofont-ui-edit"></i> Edit
-  </button>
+<button class="btn btn-danger btn-delete" id="botondelete-${doc.id}" onclick="eliminar('${doc.id}')">
+<i class="icofont-trash"></i> Delete
+</button>
+<button class="btn btn-primary btn-edit" data-id="${doc.id}" onclick="readone('${doc.id}')" data-bs-toggle="modal"
+data-bs-target="#updateModal">
+<i class="icofont-ui-edit"></i> Edit
+</button>
 </div>
 </div>`;
-
+// Pasa las tareas con el estado de "creada" a este container
+if (doc.data().estado == "creada"){
+  tareascreadasContainer.innerHTML += tarjetaHtml
 }
 
 // Pasa las tareas con el estado de "proceso" a este container
 if (doc.data().estado == "proceso"){
-  tareasprocesoContainer.innerHTML += `<div id="${doc.id}" class="card card-body mt-2 border-primary" draggable="true" ondragstart="onDragStart(event);">
-  <h3 class="h5 titulocard" id="titulocard-${doc.id}">${doc.data().titulo}</h3>
-  <p class="tareacard" id="tareacard-${doc.id}">${doc.data().tarea}</p>
-<div>
-  <button class="btn btn-danger btn-delete" id="botondelete-${doc.id}" onclick="eliminar('${doc.id}')">
-    🗑 Delete
-  </button>
-  <button class="btn btn-primary btn-edit" data-id="${doc.id}" onclick="readone('${doc.id}')" data-bs-toggle="modal"
-  data-bs-target="#updateModal">
-    🖉 Edit
-  </button>
-</div>
-</div>`;
+  tareasprocesoContainer.innerHTML += tarjetaHtml
 
 }
 
 // Pasa las tareas con el estado de "finalizada" a este container
 if (doc.data().estado == "finalizada"){
-  tareasfinalizadasContainer.innerHTML += `<div id="${doc.id}" class="card card-body mt-2 border-primary" draggable="true" ondragstart="onDragStart(event);">
-  <h3 class="h5 titulocard" id="titulocard-${doc.id}">${doc.data().titulo}</h3>
-  <p class="tareacard" id="tareacard-${doc.id}">${doc.data().tarea}</p>
-<div>
-  <button class="btn btn-danger btn-delete" id="botondelete-${doc.id}" onclick="eliminar('${doc.id}')">
-    🗑 Delete
-  </button>
-  <button class="btn btn-primary btn-edit" data-id="${doc.id}" onclick="readone('${doc.id}')" data-bs-toggle="modal"
-  data-bs-target="#updateModal">
-    🖉 Edit
-  </button>
-</div>
-</div>`;
+  tareasfinalizadasContainer.innerHTML += tarjetaHtml
 }  
 }
 
