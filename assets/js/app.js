@@ -110,9 +110,6 @@ function eliminar(iddoc){
 
 // Actualizamos la información cuando cambiamos de zona el div
 function update(iddoc, divestado){
-  console.log("divestado: " + divestado)
-  
-  //alert(iddoc + " " + divestado)
   if (divestado == "tareas-proceso"){
      db.collection("tareasDb").doc(iddoc).update({estado: "proceso"});
   }
