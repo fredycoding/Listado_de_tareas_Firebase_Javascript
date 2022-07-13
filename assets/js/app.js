@@ -97,8 +97,8 @@ data-bs-target="#updateModal">
   }
 }
 
-//Eliminamos cuando presionamos el botón eliminar, enviamos un sweet alert
-//para confirmar el cambio
+
+/******* BOTÓN ELIMINAR - enviamos un Sweet Alert para confirmar ***************/
 function eliminar(iddoc) {
   Swal.fire({
     title: 'Esta seguro que desea eliminar esta tarea?',
@@ -114,7 +114,7 @@ function eliminar(iddoc) {
   })
 } // Fin eliminar
 
-// Actualizamos la información cuando cambiamos de zona el div
+/******* FUNCIÓN - Actualizamos la información cuando cambiamos de zona el div ***************/ 
 function update(iddoc, divestado) {
   if (divestado == "tareas-proceso") {
     db.collection("tareasDb").doc(iddoc).update({ estado: "proceso" });
@@ -130,7 +130,7 @@ function update(iddoc, divestado) {
 
 
 
-// Cuando creamos un nuevo registro;
+/******* BOTÓN GUARDAR- Cuando creamos un nuevo registro ***************/
 form.addEventListener("submit", e => {
   e.preventDefault();
 
@@ -145,7 +145,7 @@ form.addEventListener("submit", e => {
   }
 });
 
-// Lee un documento por id y se activa cuendo presionó el botón Edit
+/******* BOTÓN EDIT - Lee un documento por id ***************/  
 function readone(iddoc) {
   var docRef = db.collection("tareasDb").doc(iddoc);
 
@@ -164,13 +164,13 @@ function readone(iddoc) {
   });
 }
 
-//BOTÓN UPDATE - Modal
+/******* BOTÓN UPDATE - Modal  ***************/ 
 botonUpdateModal.addEventListener('click', () => {
   let iddoc = document.getElementById("campo-id-modal")
   let tareafinal = document.getElementById("tareaupdate")
   let titulofinal = document.getElementById("tituloupdate")
 
-  if (titulofinal.value == "" || tareafinal.value) {
+  if (titulofinal.value == "" || tareafinal.value == "") {
     alert("NO PUEDE DEJAR LOS CAMPOS VACIOS")
   } else {
     db.collection("tareasDb").doc(iddoc.value).update({ titulo: titulofinal.value, tarea: tareafinal.value });
@@ -185,7 +185,7 @@ botonUpdateModal.addEventListener('click', () => {
 })
 
 
-// Realtime listener de Firebase
+/******* Realtime listener de Firebase  ***************/ 
 async function getRealtimeData() {
 
   try {
@@ -218,5 +218,13 @@ async function getRealtimeData() {
 }
 
 getRealtimeData();
+
+function myFunction() {
+  setTimeout(abraLoader(),1000)
+}
+
+
+const abraloader = () => myFunction()
+
 
 

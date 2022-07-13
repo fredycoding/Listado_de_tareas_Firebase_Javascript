@@ -105,7 +105,7 @@ body {
   border: 1px solid #ffffff;
   border-radius: 10px;
   margin-top: 5px;
-  margin-bottom: 10px;
+  margin-bottom: 10px;  
 }
 
 .card {
@@ -116,6 +116,9 @@ body {
   margin-bottom: 10px;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
+ 
+
+
 }
 
 
@@ -208,3 +211,5 @@ body {
   text-align: center;
 
 }
+
+
