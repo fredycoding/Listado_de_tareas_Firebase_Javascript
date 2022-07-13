@@ -112,3 +112,15 @@ background: #0079bf;
 
 }
 
+.copyright {
+  font-family: 'Varela Round', sans-serif;
+  font-size: small;
+  color: #ffffff;
+  position: fixed;
+  left: 0;
+  bottom: 30;
+  width: 100%;
+  text-align: center;
+
+}
+
