@@ -116,15 +116,13 @@ body {
   margin-bottom: 10px;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
- 
-
 
 }
 
 
 .navbar {
   background: #0066a0;
-  border-color: #ffffff;
+  height: 60px;
 }
 
 .btnCrear {
@@ -213,3 +211,11 @@ body {
 }
 
 
+.modal-content{
+  background: linear-gradient(to right, #373b44, #4286f4) !important;
+    color: #fff;
+    border-color: #ebecf0;
+    border-radius: 15px;
+    font-family: 'Varela Round', sans-serif;
+    
+}
