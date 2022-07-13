@@ -3,7 +3,7 @@
 ```
 Para correr el proyecto solo abra index.html en live server
 ```
-![image](https://user-images.githubusercontent.com/16197568/178548112-f28f5724-53b0-44cc-92fb-9e86b8b9f55d.png)
+![image](https://user-images.githubusercontent.com/16197568/178822695-eb3988ce-08cb-4a0c-9193-d6eb6d7bc78d.png)
 
 
 ## Author
