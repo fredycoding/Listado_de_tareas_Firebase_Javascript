@@ -6,34 +6,46 @@ const tareasfinalizadasContainer = document.getElementById("tareas-finalizadas")
 const botonUpdateModal = document.getElementById("botonupdatemodal");
 const botoncreartarea = document.getElementById("btn-crear-tarea");
 const botonUpdateTraslado = document.getElementById("botonUpdateTraslado")
+const contenedorPrincipal = document.querySelectorAll(".tareas-container")
 
-/* Funciones de Drag and Drop */
+
 /**** FUNCIÓN del DRAG o arrastre ***/
-function onDragStart(event) {
-  event.dataTransfer.setData('text/plain', event.target.id);
-  //event.currentTarget.style.backgroundColor = 'yellow';
-}
+/* Uso la librería Sortable JS */
+// https://github.com/SortableJS/Sortable
 
+new Sortable(tareascreadasContainer, {
+  group: 'tareas', //El grupo donde se intercambian los divs draggables
+  animation: 150,
+  onStart: (evento) => { //Inicia e drag mas info en https://github.com/SortableJS/Sortable#event-object-demo
+    console.log("Id: " + evento.item.id)
+    console.log("Desde: " + evento.from.id)
+  },
+  onEnd: (evento) => {//Finaiza el drag
+    // Si el contenedor desde donde se arrastra hasta donde se suelta haga esto:
+    // Y Envío el id del div y el id del proceso a a función de Update de firebase   
+    if (evento.from.id != evento.to.id) update(evento.item.id, evento.to.id)
+  }
+});
 
-function onDragOver(event) {
-  event.preventDefault();
-}
+new Sortable(tareasprocesoContainer, {
+  group: 'tareas',
+  animation: 150,
+  onEnd: (evento) => {
+    if (evento.from.id != evento.to.id) update(evento.item.id, evento.to.id)
+  }
+});
 
-/**** FUNCIÓN del DROP ***/
-function onDrop(event) {
-  const id = event.dataTransfer.getData('text'); // id del elemento que se transfiere                      
-  const draggableElement = document.getElementById(id); // Se obtiene el html del elemento que se transfiere 
-  const dropzone = event.target; // Div donde se transfiere el elemento 
+new Sortable(tareasfinalizadasContainer, {
+  group: 'tareas',
+  animation: 150,
+  onEnd: (evento) => {
+    if (evento.from.id != evento.to.id) update(evento.item.id, evento.to.id)
+  }
+});
 
-  update(id, dropzone.id)
-
-  dropzone.appendChild(draggableElement); // Se suma el elemento a la zona de transferencia
-  event.dataTransfer.clearData();
-
-}
 
 /**** Función de Flecha Recibe el id del documento por el boton compartir ****/
-const enviarIdTraslado= (idTraslado)=> document.getElementById('campo-id-traslado').value = idTraslado
+const enviarIdTraslado = (idTraslado) => document.getElementById('campo-id-traslado').value = idTraslado
 
 
 /******* BOTÓN MODAL DE TRASLADO - Activo para móviles ***************/
@@ -59,7 +71,7 @@ botonUpdateTraslado.addEventListener('click', () => {
 function renderTareas(doc) {
 
   //Codigo html de la tarjeta qe creo dinamicamente
-  let tarjetaHtml = `<div id="${doc.id}" class="card card-body mt-2 border-primary" draggable="true" ondragstart="onDragStart(event);">
+  let tarjetaHtml = `<div id="${doc.id}" class="card card-body mt-2 border-primary">
 <div class="row">
   <div class="col">
   <h3 class="h5 titulocard" id="titulocard-${doc.id}">${doc.data().titulo}</h3>
@@ -114,7 +126,7 @@ function eliminar(iddoc) {
   })
 } // Fin eliminar
 
-/******* FUNCIÓN - Actualizamos la información cuando cambiamos de zona el div ***************/ 
+/******* FUNCIÓN - Actualizamos la información cuando cambiamos de zona el div ***************/
 function update(iddoc, divestado) {
   if (divestado == "tareas-proceso") {
     db.collection("tareasDb").doc(iddoc).update({ estado: "proceso" });
@@ -125,6 +137,7 @@ function update(iddoc, divestado) {
   if (divestado == "tareas-creadas") {
     db.collection("tareasDb").doc(iddoc).update({ estado: "creada" });
   }
+  console.log("!Tarea actualizada")
 
 } // Fin update
 
@@ -145,7 +158,7 @@ form.addEventListener("submit", e => {
   }
 });
 
-/******* BOTÓN EDIT - Lee un documento por id ***************/  
+/******* BOTÓN EDIT - Lee un documento por id ***************/
 function readone(iddoc) {
   var docRef = db.collection("tareasDb").doc(iddoc);
 
@@ -164,7 +177,7 @@ function readone(iddoc) {
   });
 }
 
-/******* BOTÓN UPDATE - Modal  ***************/ 
+/******* BOTÓN UPDATE - Modal  ***************/
 botonUpdateModal.addEventListener('click', () => {
   let iddoc = document.getElementById("campo-id-modal")
   let tareafinal = document.getElementById("tareaupdate")
@@ -185,7 +198,7 @@ botonUpdateModal.addEventListener('click', () => {
 })
 
 
-/******* Realtime listener de Firebase  ***************/ 
+/******* Realtime listener de Firebase  ***************/
 async function getRealtimeData() {
 
   try {
@@ -213,11 +226,6 @@ async function getRealtimeData() {
   } catch (err) {
     alert("Error: " + err)
   }
-
-
 }
 
 getRealtimeData();
-
-
-

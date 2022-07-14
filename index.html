@@ -45,18 +45,17 @@
         <div class="container-fluid">
             <div class="contenedor-principal">
               <!-- Zona de crear tarea-->
-              <div class="tareas-container" ondragover="onDragOver(event);" ondrop="onDrop(event);" id="tareas-creadas">
+              <div class="tareas-container" id="tareas-creadas">
                 <i class="icofont-tasks-alt"></i> POR HACER
               </div>
         
               <!-- Zona de tarea en proceso-->
-              <div class="tareas-container" ondragover="onDragOver(event);" ondrop="onDrop(event);" id="tareas-proceso">
+              <div class="tareas-container" id="tareas-proceso">
                 <i class="icofont-tools-alt-2"></i> EN PROCESO
               </div>
         
               <!-- Zona de tarea finalizada-->
-              <div class="tareas-container" ondragover="onDragOver(event);" ondrop="onDrop(event);"
-                id="tareas-finalizadas">
+              <div class="tareas-container" id="tareas-finalizadas">
                 <span class="ml-5">
                     <i class="icofont-check-circled"></i> FINALIZADAS
                 </span> 
@@ -187,7 +186,7 @@
         // Reference to the database
         const db = firebase.firestore();
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/draggable/1.0.0-beta.12/draggable.min.js" integrity="sha512-VTqyB/kLQGaTnF5kYAgeEFo8fwqdlAGNUQeoQi4EOmmBYTEQ/XrYC7lnzCvBBp1PR+1ODEQiT075oeUdPeFHwA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 
     <script src="assets/js/app.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
