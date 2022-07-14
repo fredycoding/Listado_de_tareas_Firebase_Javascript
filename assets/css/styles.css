@@ -165,9 +165,13 @@ body {
 
 .tareacard {
   font-family: 'Varela Round', sans-serif;
+  font-size:medium;
+  color: #1d1d1d; 
+}
+span{
   font-size: small;
-  color: #1d1d1d;
-  text-transform: initial;
+  font-family: 'Varela Round', sans-serif;
+  color: #888888;
 }
 
 .btn-delete {
@@ -216,3 +220,4 @@ body {
     font-family: 'Varela Round', sans-serif;
     
 }
+

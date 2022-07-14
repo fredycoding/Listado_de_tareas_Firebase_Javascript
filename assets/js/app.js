@@ -4,7 +4,6 @@ const tareascreadasContainer = document.getElementById("tareas-creadas");
 const tareasprocesoContainer = document.getElementById("tareas-proceso");
 const tareasfinalizadasContainer = document.getElementById("tareas-finalizadas");
 const botonUpdateModal = document.getElementById("botonupdatemodal");
-const botoncreartarea = document.getElementById("btn-crear-tarea");
 const botonUpdateTraslado = document.getElementById("botonUpdateTraslado")
 const contenedorPrincipal = document.querySelectorAll(".tareas-container")
 
@@ -69,6 +68,10 @@ botonUpdateTraslado.addEventListener('click', () => {
 
 /******* RENDERIZA LAS TAREAS - Las ingresa al container de acuerdo al estado ***************/
 function renderTareas(doc) {
+  let fecha = doc.data().fecha
+ 
+ 
+  console.log(fecha)
 
   //Codigo html de la tarjeta qe creo dinamicamente
   let tarjetaHtml = `<div id="${doc.id}" class="card card-body mt-2 border-primary">
@@ -81,11 +84,11 @@ function renderTareas(doc) {
   data-bs-target="#trasladoMobileModal" onclick="enviarIdTraslado('${doc.id}')"><i class="icofont-share"></i></button>
   </div>
 </div> 
-<p class="tareacard" id="tareacard-${doc.id}">${doc.data().tarea}</p>  
+<p class="tareacard" id="tareacard-${doc.id}">${doc.data().tarea}</p> 
+<span class"fecha float-end">${fecha}</span> 
 <div>
 <button class="btn btn-danger btn-delete" id="botondelete-${doc.id}" onclick="eliminar('${doc.id}')">
-<i class="icofont-trash"></i> Delete
-</button>
+<i class="icofont-trash"></i> Delete</button>
 <button class="btn btn-primary btn-edit" data-id="${doc.id}" onclick="readone('${doc.id}')" data-bs-toggle="modal"
 data-bs-target="#updateModal">
 <i class="icofont-ui-edit"></i> Edit
@@ -143,15 +146,17 @@ function update(iddoc, divestado) {
 
 
 
-/******* BOTÓN GUARDAR- Cuando creamos un nuevo registro ***************/
+/******* BOTÓN CREAR TAREA - Cuando creamos un nuevo registro ***************/
 form.addEventListener("submit", e => {
   e.preventDefault();
+
+  const fecha = new Date().toUTCString()
 
   if (form.titulo.value == "" || form.tarea.value == "") {
     alert("Error: Los campos no deben estar vacios")
 
   } else {
-    db.collection("tareasDb").add({ titulo: form.titulo.value, tarea: form.tarea.value, estado: "creada" });
+    db.collection("tareasDb").add({ titulo: form.titulo.value, tarea: form.tarea.value, estado: "creada", fecha: fecha});
     form.titulo.value = "";
     form.tarea.value = "";
     $('#exampleModal').modal('hide');
