@@ -8,21 +8,18 @@ const botonUpdateTraslado = document.getElementById("botonUpdateTraslado")
 const contenedorPrincipal = document.querySelectorAll(".tareas-container")
 
 
-/**** FUNCIÓN del DRAG o arrastre ***/
-/* Uso la librería Sortable JS */
+/**** FUNCIÓNES del DRAG o arrastre ***/
 // https://github.com/SortableJS/Sortable
 
 new Sortable(tareascreadasContainer, {
-  group: 'tareas', //El grupo donde se intercambian los divs draggables
+  group: 'tareas',
   animation: 150,
-  onStart: (evento) => { //Inicia e drag mas info en https://github.com/SortableJS/Sortable#event-object-demo
+  onStart: (evento) => { 
     console.log("Id: " + evento.item.id)
     console.log("Desde: " + evento.from.id)
   },
-  onEnd: (evento) => {//Finaiza el drag
-    // Si el contenedor desde donde se arrastra hasta donde se suelta haga esto:
-    // Y Envío el id del div y el id del proceso a a función de Update de firebase   
-    if (evento.from.id != evento.to.id) update(evento.item.id, evento.to.id)
+  onEnd: (evento) => {   
+    if (evento.from.id != evento.to.id) updateDbFirebase(evento.item.id, evento.to.id)
   }
 });
 
@@ -30,7 +27,7 @@ new Sortable(tareasprocesoContainer, {
   group: 'tareas',
   animation: 150,
   onEnd: (evento) => {
-    if (evento.from.id != evento.to.id) update(evento.item.id, evento.to.id)
+    if (evento.from.id != evento.to.id) updateDbFirebase(evento.item.id, evento.to.id)
   }
 });
 
@@ -38,42 +35,28 @@ new Sortable(tareasfinalizadasContainer, {
   group: 'tareas',
   animation: 150,
   onEnd: (evento) => {
-    if (evento.from.id != evento.to.id) update(evento.item.id, evento.to.id)
+    if (evento.from.id != evento.to.id) updateDbFirebase(evento.item.id, evento.to.id)
   }
 });
 
 
-/**** Función de Flecha Recibe el id del documento por el boton compartir ****/
 const enviarIdTraslado = (idTraslado) => document.getElementById('campo-id-traslado').value = idTraslado
 
-
-/******* BOTÓN MODAL DE TRASLADO - Activo para móviles ***************/
-botonUpdateTraslado.addEventListener('click', () => {
-  //Traigo el id del campo oculto del modal
+botonUpdateTraslado.addEventListener('click', () => { 
   const valorIdTraslado = document.getElementById('campo-id-traslado').value
-  //Traigo el valor del select
   const valorSelect = document.getElementById('selectTraslado').value
-
   let valorSelectFinal = ""
   if (valorSelect == "PORHACER") valorSelectFinal = "creada"
   if (valorSelect == "ENPROCESO") valorSelectFinal = "proceso"
   if (valorSelect == "FINALIZADA") valorSelectFinal = "finalizada"
-
-  //Hago el update en la base de datos
   db.collection("tareasDb").doc(valorIdTraslado).update({ estado: valorSelectFinal });
-
   $('#trasladoMobileModal').modal('hide');
-
 })
 
-/******* RENDERIZA LAS TAREAS - Las ingresa al container de acuerdo al estado ***************/
-function renderTareas(doc) {
-  let fecha = doc.data().fecha
- 
- 
-  console.log(fecha)
 
-  //Codigo html de la tarjeta qe creo dinamicamente
+function renderTareas(doc) {
+  let fecha = doc.data().fecha 
+  
   let tarjetaHtml = `<div id="${doc.id}" class="card card-body mt-2 border-primary">
 <div class="row">
   <div class="col">
@@ -87,34 +70,30 @@ function renderTareas(doc) {
 <p class="tareacard" id="tareacard-${doc.id}">${doc.data().tarea}</p> 
 <span class"fecha float-end">${fecha}</span> 
 <div>
-<button class="btn btn-danger btn-delete" id="botondelete-${doc.id}" onclick="eliminar('${doc.id}')">
+<button class="btn btn-danger btn-delete" id="botondelete-${doc.id}" onclick="eliminarTarea('${doc.id}')">
 <i class="icofont-trash"></i> Delete</button>
-<button class="btn btn-primary btn-edit" data-id="${doc.id}" onclick="readone('${doc.id}')" data-bs-toggle="modal"
+<button class="btn btn-primary btn-edit" data-id="${doc.id}" onclick="readDBbyId('${doc.id}')" data-bs-toggle="modal"
 data-bs-target="#updateModal">
 <i class="icofont-ui-edit"></i> Edit
 </button>
 </div>
 </div>`;
 
-  // Pasa las tareas con el estado de "creada" a este container
   if (doc.data().estado == "creada") {
     tareascreadasContainer.innerHTML += tarjetaHtml
   }
 
-  // Pasa las tareas con el estado de "proceso" a este container
   if (doc.data().estado == "proceso") {
     tareasprocesoContainer.innerHTML += tarjetaHtml
   }
 
-  // Pasa las tareas con el estado de "finalizada" a este container
   if (doc.data().estado == "finalizada") {
     tareasfinalizadasContainer.innerHTML += tarjetaHtml
   }
 }
 
 
-/******* BOTÓN ELIMINAR - enviamos un Sweet Alert para confirmar ***************/
-function eliminar(iddoc) {
+function eliminarTarea(iddoc) {
   Swal.fire({
     title: 'Esta seguro que desea eliminar esta tarea?',
     showDenyButton: true,
@@ -127,10 +106,10 @@ function eliminar(iddoc) {
       Swal.fire('Tarea eliminada!', '', 'success')
     }
   })
-} // Fin eliminar
+} 
 
-/******* FUNCIÓN - Actualizamos la información cuando cambiamos de zona el div ***************/
-function update(iddoc, divestado) {
+
+function updateDbFirebase(iddoc, divestado) {
   if (divestado == "tareas-proceso") {
     db.collection("tareasDb").doc(iddoc).update({ estado: "proceso" });
   }
@@ -142,19 +121,14 @@ function update(iddoc, divestado) {
   }
   console.log("!Tarea actualizada")
 
-} // Fin update
+}
 
 
-
-/******* BOTÓN CREAR TAREA - Cuando creamos un nuevo registro ***************/
 form.addEventListener("submit", e => {
   e.preventDefault();
-
   const fecha = new Date().toUTCString()
-
   if (form.titulo.value == "" || form.tarea.value == "") {
     alert("Error: Los campos no deben estar vacios")
-
   } else {
     db.collection("tareasDb").add({ titulo: form.titulo.value, tarea: form.tarea.value, estado: "creada", fecha: fecha});
     form.titulo.value = "";
@@ -163,10 +137,9 @@ form.addEventListener("submit", e => {
   }
 });
 
-/******* BOTÓN EDIT - Lee un documento por id ***************/
-function readone(iddoc) {
-  var docRef = db.collection("tareasDb").doc(iddoc);
 
+function readDBbyId(iddoc) {
+  let docRef = db.collection("tareasDb").doc(iddoc);
   docRef.get().then((doc) => {
     if (doc.exists) {
       console.log("Document data:", doc.data());
@@ -174,7 +147,6 @@ function readone(iddoc) {
       document.getElementById("tareaupdate").value = doc.data().tarea
       document.getElementById("campo-id-modal").value = iddoc
     } else {
-      // doc.data() will be undefined in this case
       alert("No such document!");
     }
   }).catch((error) => {
@@ -182,20 +154,16 @@ function readone(iddoc) {
   });
 }
 
-/******* BOTÓN UPDATE - Modal  ***************/
+
 botonUpdateModal.addEventListener('click', () => {
   let iddoc = document.getElementById("campo-id-modal")
   let tareafinal = document.getElementById("tareaupdate")
   let titulofinal = document.getElementById("tituloupdate")
-
   if (titulofinal.value == "" || tareafinal.value == "") {
     alert("NO PUEDE DEJAR LOS CAMPOS VACIOS")
   } else {
     db.collection("tareasDb").doc(iddoc.value).update({ titulo: titulofinal.value, tarea: tareafinal.value });
-
-    $('#updateModal').modal('hide');  // Escondo el modal del update
-
-    //Limpiamos campos del form del modal
+    $('#updateModal').modal('hide');
     iddoc.value = ""
     tareafinal.value = ""
     titulofinal.value = ""
@@ -203,31 +171,24 @@ botonUpdateModal.addEventListener('click', () => {
 })
 
 
-/******* Realtime listener de Firebase  ***************/
-async function getRealtimeData() {
 
+async function getRealtimeData() {
   try {
     const datos = await db.collection("tareasDb").orderBy("titulo").onSnapshot(snapshot => {
-
       let changes = snapshot.docChanges();
-      changes.forEach(change => {
-        //console.log("Nuevos cambios: " + change.type)
-        if (change.type === "added") { // Cuando hay nuevos registros         
+      changes.forEach(change => {   
+        if (change.type === "added") {        
           renderTareas(change.doc);
-        } else if (change.type === "removed") { // Cuando hay eliminación
-          //console.log("Elemento eliminado " + change.doc.id)
-          const element = document.getElementById(change.doc.id); //Traigo el elemento eliminado
-          element.remove(); // Elimina el div por el id     
-
-        } else if (change.type === "modified") { // Cuando hay cambios de actualización
-          const element = document.getElementById(change.doc.id); //Traigo el elemento actualizado
-          element.remove(); // Elimina el div por el id     
+        } else if (change.type === "removed") {           
+          const element = document.getElementById(change.doc.id); 
+          element.remove();     
+        } else if (change.type === "modified") { 
+          const element = document.getElementById(change.doc.id); 
+          element.remove();   
           renderTareas(change.doc);
-
         }
       });
     });
-
   } catch (err) {
     alert("Error: " + err)
   }
