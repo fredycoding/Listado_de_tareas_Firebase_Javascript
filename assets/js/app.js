@@ -55,7 +55,13 @@ botonUpdateTraslado.addEventListener('click', () => {
 
 
 function renderTareas(doc) {
-  let fecha = doc.data().fecha 
+  let dia = new Date(doc.data().fecha).getUTCDate()
+  let mes = new Date(doc.data().fecha).getUTCMonth()
+  let año = new Date(doc.data().fecha).getUTCFullYear()
+  let hora = new Date(doc.data().fecha).getHours()
+  let minutos = new Date(doc.data().fecha).getMinutes()
+  let fecha = dia +"/"+mes+"/"+año + " " + hora + ":" + minutos + ":00"
+             
   
   let tarjetaHtml = `<div id="${doc.id}" class="card card-body mt-2 border-primary">
 <div class="row">
