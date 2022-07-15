@@ -70,7 +70,7 @@ function renderTareas(doc) {
 <p class="tareacard" id="tareacard-${doc.id}">${doc.data().tarea}</p> 
 <span class"fecha float-end">${fecha}</span> 
 <div>
-<button class="btn btn-danger btn-delete" id="botondelete-${doc.id}" onclick="eliminarTarea('${doc.id}')">
+<button class="btn btn-danger btn-delete" id="botondelete-${doc.id}" onclick="deleteTask('${doc.id}')">
 <i class="icofont-trash"></i> Delete</button>
 <button class="btn btn-primary btn-edit" data-id="${doc.id}" onclick="readDBbyId('${doc.id}')" data-bs-toggle="modal"
 data-bs-target="#updateModal">
@@ -93,7 +93,7 @@ data-bs-target="#updateModal">
 }
 
 
-function eliminarTarea(iddoc) {
+function deleteTask(iddoc) {
   Swal.fire({
     title: 'Esta seguro que desea eliminar esta tarea?',
     showDenyButton: true,
