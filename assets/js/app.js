@@ -54,14 +54,13 @@ botonUpdateTraslado.addEventListener('click', () => {
 })
 
 
-function renderTareas(doc) {
+const renderTareas=(doc)=> {
   let dia = new Date(doc.data().fecha).getUTCDate()
   let mes = new Date(doc.data().fecha).getUTCMonth()
   let año = new Date(doc.data().fecha).getUTCFullYear()
   let hora = new Date(doc.data().fecha).getHours()
   let minutos = new Date(doc.data().fecha).getMinutes()
-  let fecha = dia +"/"+mes+"/"+año + " " + hora + ":" + minutos + ":00"
-             
+  let fecha = dia +"/"+mes+"/"+año + " " + hora + ":" + minutos + ":00"             
   
   let tarjetaHtml = `<div id="${doc.id}" class="card card-body mt-2 border-primary">
 <div class="row">
@@ -99,7 +98,7 @@ data-bs-target="#updateModal">
 }
 
 
-function deleteTask(iddoc) {
+const deleteTask = (iddoc)=> {
   Swal.fire({
     title: 'Esta seguro que desea eliminar esta tarea?',
     showDenyButton: true,
@@ -115,7 +114,7 @@ function deleteTask(iddoc) {
 } 
 
 
-function updateDbFirebase(iddoc, divestado) {
+const updateDbFirebase =(iddoc, divestado)=> {
   if (divestado == "tareas-proceso") {
     db.collection("tareasDb").doc(iddoc).update({ estado: "proceso" });
   }
@@ -144,7 +143,7 @@ form.addEventListener("submit", e => {
 });
 
 
-function readDBbyId(iddoc) {
+const readDBbyId = (iddoc)=> {
   let docRef = db.collection("tareasDb").doc(iddoc);
   docRef.get().then((doc) => {
     if (doc.exists) {
@@ -178,7 +177,7 @@ botonUpdateModal.addEventListener('click', () => {
 
 
 
-async function getRealtimeData() {
+const getRealtimeData = async ()=> {
   try {
     const datos = await db.collection("tareasDb").orderBy("titulo").onSnapshot(snapshot => {
       let changes = snapshot.docChanges();
