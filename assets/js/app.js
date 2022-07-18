@@ -130,7 +130,7 @@ botonUpdateModal.addEventListener('click', () => {
 
 
 const renderTareas=(doc)=> {
-  const fechaformat = moment(doc.data().fecha).format('llll');
+  const fechaformat = moment(doc.data().fecha).format('lll');
   console.log(fechaformat)
            
   
