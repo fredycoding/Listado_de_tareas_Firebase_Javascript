@@ -53,6 +53,81 @@ botonUpdateTraslado.addEventListener('click', () => {
   $('#trasladoMobileModal').modal('hide');
 })
 
+const deleteTask = (iddoc)=> {
+  Swal.fire({
+    title: 'Esta seguro que desea eliminar esta tarea?',
+    showDenyButton: true,
+    confirmButtonText: 'Eliminar',
+    denyButtonText: `No eliminar`,
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      db.collection("tareasDb").doc(iddoc).delete();
+      Swal.fire('Tarea eliminada!', '', 'success')
+    }
+  })
+} 
+
+const readDBbyId = (iddoc)=> {
+  let docRef = db.collection("tareasDb").doc(iddoc);
+  docRef.get().then((doc) => {
+    if (doc.exists) {
+      console.log("Document data:", doc.data());
+      document.getElementById("tituloupdate").value = doc.data().titulo
+      document.getElementById("tareaupdate").value = doc.data().tarea
+      document.getElementById("campo-id-modal").value = iddoc
+    } else {
+      alert("No such document!");
+    }
+  }).catch((error) => {
+    console.log("Error getting document:", error);
+  });
+}
+
+const updateDbFirebase =(iddoc, divestado)=> {
+  if (divestado == "tareas-proceso") {
+    db.collection("tareasDb").doc(iddoc).update({ estado: "proceso" });
+  }
+  if (divestado == "tareas-finalizadas") {
+    db.collection("tareasDb").doc(iddoc).update({ estado: "finalizada" });
+  }
+  if (divestado == "tareas-creadas") {
+    db.collection("tareasDb").doc(iddoc).update({ estado: "creada" });
+  }
+  console.log("!Tarea actualizada")
+
+}
+
+
+form.addEventListener("submit", e => {
+  e.preventDefault();
+  const fecha = new Date().toUTCString()
+  if (form.titulo.value == "" || form.tarea.value == "") {
+    alert("Error: Los campos no deben estar vacios")
+  } else {
+    db.collection("tareasDb").add({ titulo: form.titulo.value, tarea: form.tarea.value, estado: "creada", fecha: fecha});
+    form.titulo.value = "";
+    form.tarea.value = "";
+    $('#exampleModal').modal('hide');
+  }
+});
+
+
+botonUpdateModal.addEventListener('click', () => {
+  let iddoc = document.getElementById("campo-id-modal")
+  let tareafinal = document.getElementById("tareaupdate")
+  let titulofinal = document.getElementById("tituloupdate")
+  if (titulofinal.value == "" || tareafinal.value == "") {
+    alert("NO PUEDE DEJAR LOS CAMPOS VACIOS")
+  } else {
+    db.collection("tareasDb").doc(iddoc.value).update({ titulo: titulofinal.value, tarea: tareafinal.value });
+    $('#updateModal').modal('hide');
+    iddoc.value = ""
+    tareafinal.value = ""
+    titulofinal.value = ""
+  }
+})
+
 
 const renderTareas=(doc)=> {
   let dia = new Date(doc.data().fecha).getUTCDate()
@@ -96,85 +171,6 @@ data-bs-target="#updateModal">
     tareasfinalizadasContainer.innerHTML += tarjetaHtml
   }
 }
-
-
-const deleteTask = (iddoc)=> {
-  Swal.fire({
-    title: 'Esta seguro que desea eliminar esta tarea?',
-    showDenyButton: true,
-    confirmButtonText: 'Eliminar',
-    denyButtonText: `No eliminar`,
-  }).then((result) => {
-    /* Read more about isConfirmed, isDenied below */
-    if (result.isConfirmed) {
-      db.collection("tareasDb").doc(iddoc).delete();
-      Swal.fire('Tarea eliminada!', '', 'success')
-    }
-  })
-} 
-
-
-const updateDbFirebase =(iddoc, divestado)=> {
-  if (divestado == "tareas-proceso") {
-    db.collection("tareasDb").doc(iddoc).update({ estado: "proceso" });
-  }
-  if (divestado == "tareas-finalizadas") {
-    db.collection("tareasDb").doc(iddoc).update({ estado: "finalizada" });
-  }
-  if (divestado == "tareas-creadas") {
-    db.collection("tareasDb").doc(iddoc).update({ estado: "creada" });
-  }
-  console.log("!Tarea actualizada")
-
-}
-
-
-form.addEventListener("submit", e => {
-  e.preventDefault();
-  const fecha = new Date().toUTCString()
-  if (form.titulo.value == "" || form.tarea.value == "") {
-    alert("Error: Los campos no deben estar vacios")
-  } else {
-    db.collection("tareasDb").add({ titulo: form.titulo.value, tarea: form.tarea.value, estado: "creada", fecha: fecha});
-    form.titulo.value = "";
-    form.tarea.value = "";
-    $('#exampleModal').modal('hide');
-  }
-});
-
-
-const readDBbyId = (iddoc)=> {
-  let docRef = db.collection("tareasDb").doc(iddoc);
-  docRef.get().then((doc) => {
-    if (doc.exists) {
-      console.log("Document data:", doc.data());
-      document.getElementById("tituloupdate").value = doc.data().titulo
-      document.getElementById("tareaupdate").value = doc.data().tarea
-      document.getElementById("campo-id-modal").value = iddoc
-    } else {
-      alert("No such document!");
-    }
-  }).catch((error) => {
-    console.log("Error getting document:", error);
-  });
-}
-
-
-botonUpdateModal.addEventListener('click', () => {
-  let iddoc = document.getElementById("campo-id-modal")
-  let tareafinal = document.getElementById("tareaupdate")
-  let titulofinal = document.getElementById("tituloupdate")
-  if (titulofinal.value == "" || tareafinal.value == "") {
-    alert("NO PUEDE DEJAR LOS CAMPOS VACIOS")
-  } else {
-    db.collection("tareasDb").doc(iddoc.value).update({ titulo: titulofinal.value, tarea: tareafinal.value });
-    $('#updateModal').modal('hide');
-    iddoc.value = ""
-    tareafinal.value = ""
-    titulofinal.value = ""
-  }
-})
-
 
 
 const getRealtimeData = async ()=> {
