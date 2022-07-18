@@ -131,8 +131,6 @@ botonUpdateModal.addEventListener('click', () => {
 
 const renderTareas=(doc)=> {
   const fechaformat = moment(doc.data().fecha).format('lll'); //https://momentjs.com/
-  console.log(fechaformat)
-           
   
   let tarjetaHtml = `<div id="${doc.id}" class="card card-body mt-2 border-primary">
 <div class="row">
