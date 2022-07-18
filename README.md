@@ -25,6 +25,9 @@ new Sortable(tareascreadasContainer, {
   }
 });
 ```
+### Uso de la librería Moment JS
+Para la manipulación de la fecha utilizó la librería MOMENT JS <br>
+Mas información en: https://momentjs.com/ 
 
 
 #### Escritorio
