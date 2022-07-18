@@ -130,12 +130,9 @@ botonUpdateModal.addEventListener('click', () => {
 
 
 const renderTareas=(doc)=> {
-  let dia = new Date(doc.data().fecha).getUTCDate()
-  let mes = new Date(doc.data().fecha).getUTCMonth()
-  let año = new Date(doc.data().fecha).getUTCFullYear()
-  let hora = new Date(doc.data().fecha).getHours()
-  let minutos = new Date(doc.data().fecha).getMinutes()
-  let fecha = dia +"/"+mes+"/"+año + " " + hora + ":" + minutos + ":00"             
+  const fechaformat = moment(doc.data().fecha).format('llll');
+  console.log(fechaformat)
+           
   
   let tarjetaHtml = `<div id="${doc.id}" class="card card-body mt-2 border-primary">
 <div class="row">
@@ -148,7 +145,7 @@ const renderTareas=(doc)=> {
   </div>
 </div> 
 <p class="tareacard" id="tareacard-${doc.id}">${doc.data().tarea}</p> 
-<span class"fecha float-end">${fecha}</span> 
+<span class"fecha float-end">${fechaformat}</span> 
 <div>
 <button class="btn btn-danger btn-delete" id="botondelete-${doc.id}" onclick="deleteTask('${doc.id}')">
 <i class="icofont-trash"></i> Delete</button>
