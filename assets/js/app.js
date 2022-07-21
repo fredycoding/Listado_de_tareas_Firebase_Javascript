@@ -1,3 +1,4 @@
+import { db } from './firebase.js'
 const ListadeTareas = document.querySelector("#ListadeTareas");
 const form = document.querySelector("#add-tarea-form");
 const tareascreadasContainer = document.getElementById("tareas-creadas");
@@ -7,18 +8,17 @@ const botonUpdateModal = document.getElementById("botonupdatemodal");
 const botonUpdateTraslado = document.getElementById("botonUpdateTraslado")
 const contenedorPrincipal = document.querySelectorAll(".tareas-container")
 
-
 /**** FUNCIÓNES del DRAG o arrastre ***/
 // https://github.com/SortableJS/Sortable
 
 new Sortable(tareascreadasContainer, {
   group: 'tareas',
   animation: 150,
-  onStart: (evento) => { 
+  onStart: (evento) => {
     console.log("Id: " + evento.item.id)
     console.log("Desde: " + evento.from.id)
   },
-  onEnd: (evento) => {   
+  onEnd: (evento) => {
     if (evento.from.id != evento.to.id) updateDbFirebase(evento.item.id, evento.to.id)
   }
 });
@@ -39,36 +39,9 @@ new Sortable(tareasfinalizadasContainer, {
   }
 });
 
-
 const enviarIdTraslado = (idTraslado) => document.getElementById('campo-id-traslado').value = idTraslado
 
-botonUpdateTraslado.addEventListener('click', () => { 
-  const valorIdTraslado = document.getElementById('campo-id-traslado').value
-  const valorSelect = document.getElementById('selectTraslado').value
-  let valorSelectFinal = ""
-  if (valorSelect == "PORHACER") valorSelectFinal = "creada"
-  if (valorSelect == "ENPROCESO") valorSelectFinal = "proceso"
-  if (valorSelect == "FINALIZADA") valorSelectFinal = "finalizada"
-  db.collection("tareasDb").doc(valorIdTraslado).update({ estado: valorSelectFinal });
-  $('#trasladoMobileModal').modal('hide');
-})
-
-const deleteTask = (iddoc)=> {
-  Swal.fire({
-    title: 'Esta seguro que desea eliminar esta tarea?',
-    showDenyButton: true,
-    confirmButtonText: 'Eliminar',
-    denyButtonText: `No eliminar`,
-  }).then((result) => {
-    /* Read more about isConfirmed, isDenied below */
-    if (result.isConfirmed) {
-      db.collection("tareasDb").doc(iddoc).delete();
-      Swal.fire('Tarea eliminada!', '', 'success')
-    }
-  })
-} 
-
-const readDBbyId = (iddoc)=> {
+function readDBbyId(iddoc) {
   let docRef = db.collection("tareasDb").doc(iddoc);
   docRef.get().then((doc) => {
     if (doc.exists) {
@@ -84,7 +57,51 @@ const readDBbyId = (iddoc)=> {
   });
 }
 
-const updateDbFirebase =(iddoc, divestado)=> {
+const deleteTask = (iddoc) => {
+  Swal.fire({
+    title: 'Esta seguro que desea eliminar esta tarea?',
+    showDenyButton: true,
+    confirmButtonText: 'Eliminar',
+    denyButtonText: `No eliminar`,
+  }).then((result) => {   
+    if (result.isConfirmed) {
+      db.collection("tareasDb").doc(iddoc).delete();
+      Swal.fire('Tarea eliminada!', '', 'success')
+    }
+  })
+}
+
+//Función para detectar clicks en el DOM y saber que objeto es
+document.addEventListener('click', function (e) {
+  if (e.target.name == "edit" || e.target.name == "delete" || e.target.name == "traslado") {
+    let id = e.target.getAttribute("data-id")
+    if(e.target.name == "edit"){
+      readDBbyId(id)
+    }
+    if(e.target.name == "delete"){
+      deleteTask(id)
+    }
+    if(e.target.name == "traslado"){
+      console.log("SIII" +id)
+      enviarIdTraslado(id)
+    }
+  }
+});
+
+
+botonUpdateTraslado.addEventListener('click', () => {
+  const valorIdTraslado = document.getElementById('campo-id-traslado').value
+  const valorSelect = document.getElementById('selectTraslado').value
+  let valorSelectFinal = ""
+  if (valorSelect == "PORHACER") valorSelectFinal = "creada"
+  if (valorSelect == "ENPROCESO") valorSelectFinal = "proceso"
+  if (valorSelect == "FINALIZADA") valorSelectFinal = "finalizada"
+  db.collection("tareasDb").doc(valorIdTraslado).update({ estado: valorSelectFinal });
+  $('#trasladoMobileModal').modal('hide');
+})
+
+
+const updateDbFirebase = (iddoc, divestado) => {
   if (divestado == "tareas-proceso") {
     db.collection("tareasDb").doc(iddoc).update({ estado: "proceso" });
   }
@@ -95,7 +112,6 @@ const updateDbFirebase =(iddoc, divestado)=> {
     db.collection("tareasDb").doc(iddoc).update({ estado: "creada" });
   }
   console.log("!Tarea actualizada")
-
 }
 
 
@@ -105,7 +121,7 @@ form.addEventListener("submit", e => {
   if (form.titulo.value == "" || form.tarea.value == "") {
     alert("Error: Los campos no deben estar vacios")
   } else {
-    db.collection("tareasDb").add({ titulo: form.titulo.value, tarea: form.tarea.value, estado: "creada", fecha: fecha});
+    db.collection("tareasDb").add({ titulo: form.titulo.value, tarea: form.tarea.value, estado: "creada", fecha: fecha });
     form.titulo.value = "";
     form.tarea.value = "";
     $('#exampleModal').modal('hide');
@@ -129,9 +145,9 @@ botonUpdateModal.addEventListener('click', () => {
 })
 
 
-const renderTareas=(doc)=> {
+const renderTareas = (doc) => {
   const fechaformat = moment(doc.data().fecha).format('lll'); //https://momentjs.com/
-  
+
   let tarjetaHtml = `<div id="${doc.id}" class="card card-body mt-2 border-primary">
 <div class="row">
   <div class="col">
@@ -139,15 +155,15 @@ const renderTareas=(doc)=> {
   </div>
   <div class="col div-boton-compartir">
   <button class="btn boton-compartir float-end" data-bs-toggle="modal"
-  data-bs-target="#trasladoMobileModal" onclick="enviarIdTraslado('${doc.id}')"><i class="icofont-share"></i></button>
+  data-bs-target="#trasladoMobileModal" data-id="${doc.id}" name="traslado"><i class="icofont-share"></i></button>
   </div>
 </div> 
 <p class="tareacard" id="tareacard-${doc.id}">${doc.data().tarea}</p> 
 <span class"fecha float-end">${fechaformat}</span> 
 <div>
-<button class="btn btn-danger btn-delete" id="botondelete-${doc.id}" onclick="deleteTask('${doc.id}')">
+<button class="btn btn-danger btn-delete" data-id="${doc.id}" name="delete">
 <i class="icofont-trash"></i> Delete</button>
-<button class="btn btn-primary btn-edit" data-id="${doc.id}" onclick="readDBbyId('${doc.id}')" data-bs-toggle="modal"
+<button class="btn btn-primary btn-edit" data-id="${doc.id}" data-bs-toggle="modal" name="edit"
 data-bs-target="#updateModal">
 <i class="icofont-ui-edit"></i> Edit
 </button>
@@ -168,19 +184,19 @@ data-bs-target="#updateModal">
 }
 
 
-const getRealtimeData = async ()=> {
+const getRealtimeData = async () => {
   try {
     const datos = await db.collection("tareasDb").orderBy("titulo").onSnapshot(snapshot => {
       let changes = snapshot.docChanges();
-      changes.forEach(change => {   
-        if (change.type === "added") {        
+      changes.forEach(change => {
+        if (change.type === "added") {
           renderTareas(change.doc);
-        } else if (change.type === "removed") {           
-          const element = document.getElementById(change.doc.id); 
-          element.remove();     
-        } else if (change.type === "modified") { 
-          const element = document.getElementById(change.doc.id); 
-          element.remove();   
+        } else if (change.type === "removed") {
+          const element = document.getElementById(change.doc.id);
+          element.remove();
+        } else if (change.type === "modified") {
+          const element = document.getElementById(change.doc.id);
+          element.remove();
           renderTareas(change.doc);
         }
       });
