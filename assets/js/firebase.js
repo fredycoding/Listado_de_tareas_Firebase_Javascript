@@ -1,5 +1,5 @@
 // Your web app's Firebase configuration
-var firebaseConfig = {
+let firebaseConfig = {
     apiKey: "AIzaSyAsn3DzZC_68wHDQ-DaqonQgxLr6A1_PxQ",
     authDomain: "trelloexercise.firebaseapp.com",
     databaseURL: "https://trelloexercise-default-rtdb.firebaseio.com",

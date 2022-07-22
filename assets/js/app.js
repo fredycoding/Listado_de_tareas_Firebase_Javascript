@@ -155,7 +155,7 @@ const renderTareas = (doc) => {
   </div>
   <div class="col div-boton-compartir">
   <button class="btn boton-compartir float-end" data-bs-toggle="modal"
-  data-bs-target="#trasladoMobileModal" data-id="${doc.id}" name="traslado"><i class="icofont-share"></i></button>
+  data-bs-target="#trasladoMobileModal" data-id="${doc.id}" name="traslado"><i class="icofont-external-link"></i></button>
   </div>
 </div> 
 <p class="tareacard" id="tareacard-${doc.id}">${doc.data().tarea}</p> 
