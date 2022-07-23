@@ -9,19 +9,18 @@
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.2.0/firebase-firestore.js"></script>
-       <!-- ICOFONT -->
+    <!-- ICOFONT -->
     <link rel="stylesheet" href="assets/css/icofont/icofont.min.css">
 
     <link rel="stylesheet" href="assets/css/styles.css" />
     <title>App Tareas by F.A.D.B</title>
     <link rel="icon" type="image/x-icon" href="assets/images/favicon.png">
-    
+
 </head>
 
 <body>
- 
-  <!-- Inicio del Nav Bar-->
 
+    <!-- Inicio del Nav Bar-->
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
             <h1 class="titulobrand">Tareas</h1>
@@ -29,160 +28,155 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
-              
+
                 <div class="navbar-nav ms-auto">
-                  <a href="#" class="btn btnCrear" data-bs-toggle="modal"
-                  data-bs-target="#exampleModal" id="btn-crear-tarea"><i class="icofont-tasks"></i> Crear Tarea</a>   
+                    <a href="#" class="btn btnCrear" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        id="btn-crear-tarea"><i class="icofont-tasks"></i> Crear Tarea</a>
                 </div>
             </div>
         </div>
     </nav>
 
-<!-- FIN del Nav Bar-->
+    <!-- FIN del Nav Bar-->
 
-<!-- Contenido de las columnas-->
+    <!-- Contenido de las columnas-->
     <div class="content">
         <div class="container-fluid">
             <div class="contenedor-principal">
-              <!-- Zona de crear tarea-->
-              <div class="tareas-container" id="tareas-creadas">
-                <i class="icofont-tasks-alt"></i> POR HACER
-              </div>
-        
-              <!-- Zona de tarea en proceso-->
-              <div class="tareas-container" id="tareas-proceso">
-                <i class="icofont-tools-alt-2"></i> EN PROCESO
-              </div>
-        
-              <!-- Zona de tarea finalizada-->
-              <div class="tareas-container" id="tareas-finalizadas">               
-                    <i class="icofont-check-circled"></i> FINALIZADAS               
-              </div>
+                <!-- Zona de crear tarea-->
+                <div class="tareas-container" id="tareas-creadas">
+                    <i class="icofont-tasks-alt"></i> POR HACER
+                </div>
+
+                <!-- Zona de tarea en proceso-->
+                <div class="tareas-container" id="tareas-proceso">
+                    <i class="icofont-tools-alt-2"></i> EN PROCESO
+                </div>
+
+                <!-- Zona de tarea finalizada-->
+                <div class="tareas-container" id="tareas-finalizadas">
+                    <i class="icofont-check-circled"></i> FINALIZADAS
+                </div>
             </div>
-          </div>          
-      
+        </div>
+
     </div>
 
- <!-- Modal CREAR TAREA-->
- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel"><i class="icofont-tasks"></i> Crear Tarea</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <form id="add-tarea-form">
-              <div class="modal-body">
+    <!-- Modal CREAR TAREA-->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><i class="icofont-tasks"></i> Crear Tarea</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="add-tarea-form">
+                    <div class="modal-body">
 
-                  <div>
-                      <label for="task-title">Título:</label>
-                      <input type="text" name="titulo" class="My First Title form-control"
-                          placeholder="Título de la tarea" id="titulo"/>
-                  </div>
-                  <div class="mt-2">
-                      <label for="task-description">Descripción:</label>
-                      <textarea name="tarea" rows="3" class="form-control mb-3"
-                          placeholder="Ingrese la descripción de la tarea" id="tarea"></textarea>
-                  </div>            
+                        <div>
+                            <label for="task-title">Título:</label>
+                            <input type="text" name="titulo" class="My First Title form-control"
+                                placeholder="Título de la tarea" id="titulo" />
+                        </div>
+                        <div class="mt-2">
+                            <label for="task-description">Descripción:</label>
+                            <textarea name="tarea" rows="3" class="form-control mb-3"
+                                placeholder="Ingrese la descripción de la tarea" id="tarea"></textarea>
+                        </div>
 
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>                
-                  <button class="btn btn-primary" type="submit">Guardar</button>
-              </div>
-          </form>
-      </div>
-  </div>
-</div>
-<!-- Fin Modal -->
-
-
-<!-- Modal UPDATE TAREA-->
-<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Actualizar Tarea</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button class="btn btn-primary" type="submit">Guardar</button>
+                    </div>
+                </form>
             </div>
-          
+        </div>
+    </div>
+    <!-- Fin Modal -->
+
+
+    <!-- Modal UPDATE TAREA-->
+    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Actualizar Tarea</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
                 <div class="modal-body">
-  
+
                     <div>
                         <label for="task-title">Título:</label>
-                        <input type="text" class="My First Title form-control"
-                            placeholder="Título de la tarea" id="tituloupdate"/>
+                        <input type="text" class="My First Title form-control" placeholder="Título de la tarea"
+                            id="tituloupdate" />
                     </div>
                     <div class="mt-2">
                         <label for="task-description">Descripción:</label>
-                        <textarea rows="3" class="form-control mb-3"
-                            placeholder="Ingrese la descripción de la tarea" id="tareaupdate"></textarea>
-                    </div>                  
+                        <textarea rows="3" class="form-control mb-3" placeholder="Ingrese la descripción de la tarea"
+                            id="tareaupdate"></textarea>
+                    </div>
                     <input id="campo-id-modal" type="hidden">
-  
+
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>                
-                    <button class="btn btn-warning" type="submit" id="botonupdatemodal"><i class="icofont-refresh"></i> Actualizar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button class="btn btn-warning" type="submit" id="botonupdatemodal"><i class="icofont-refresh"></i>
+                        Actualizar</button>
                 </div>
-            
+
+            </div>
         </div>
     </div>
-  </div>
-  <!-- Fin Modal -->
+    <!-- Fin Modal -->
 
-  <!-- Modal TRASLADO MOBILE-->
-<div class="modal fade" id="trasladoMobileModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Trasladar Tarea</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-          
-                <div class="modal-body">  
+    <!-- Modal TRASLADO MOBILE-->
+    <div class="modal fade" id="trasladoMobileModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Trasladar Tarea</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
                     <select class="form-control mobileSelect" id="selectTraslado">
                         <option value="PORHACER">POR HACER</option>
                         <option value="ENPROCESO">EN PROCESO</option>
-                        <option value="FINALIZADA">FINALIZADA</option>                       
+                        <option value="FINALIZADA">FINALIZADA</option>
                     </select>
                     <input id="campo-id-traslado" type="hidden">
-  
+
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>                
-                    <button class="btn btn-info" id="botonUpdateTraslado"><i class="icofont-exit"></i> Trasladar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button class="btn btn-info" id="botonUpdateTraslado"><i class="icofont-exit"></i>
+                        Trasladar</button>
                 </div>
-            
+
+            </div>
         </div>
     </div>
-  </div>
-  <!-- Fin Modal TRASLADO MOBILE -->
+    <!-- Fin Modal TRASLADO MOBILE -->
 
-
-
- <!-- Firma y copy solo visible en PC de escritorio con d-none d-sm-none d-md-block-->
-<h3 class="firma d-none d-sm-none d-md-block">By Fredy A. Diaz B.</h3>
-<h4 class="copyright d-none d-sm-none d-md-block"><i class="icofont-copyright"></i> Copyright 2022</h4>
-
-    <script>
-        
-    </script>
+    <!-- Firma y copy solo visible en PC de escritorio con d-none d-sm-none d-md-block-->
+    <h3 class="firma d-none d-sm-none d-md-block">By Fredy A. Diaz B.</h3>
+    <h4 class="copyright d-none d-sm-none d-md-block"><i class="icofont-copyright"></i> Copyright 2022</h4>
+  
+    <!-- Sortable JS -->
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
-
     <!-- moment JS - para la fácil manipulación de fechas -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <!-- Jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+    <!-- Sweet Alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.20/dist/sweetalert2.all.min.js"></script>
+    <script type="module" src="assets/js/app.js"></script>
 
-    
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
-        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
-        crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.20/dist/sweetalert2.all.min.js"></script>
-        <script type="module" src="assets/js/app.js"></script>
-        
 </body>
 
 </html>
