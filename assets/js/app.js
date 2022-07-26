@@ -1,46 +1,14 @@
 import { db } from './firebase.js'
-const ListadeTareas = document.querySelector("#ListadeTareas");
+import {tareascreadasContainer, tareasprocesoContainer, tareasfinalizadasContainer} from './sortablefunctions.js'
+
 const form = document.querySelector("#add-tarea-form");
-const tareascreadasContainer = document.getElementById("tareas-creadas");
-const tareasprocesoContainer = document.getElementById("tareas-proceso");
-const tareasfinalizadasContainer = document.getElementById("tareas-finalizadas");
 const botonUpdateModal = document.getElementById("botonupdatemodal");
 const botonUpdateTraslado = document.getElementById("botonUpdateTraslado")
-const contenedorPrincipal = document.querySelectorAll(".tareas-container")
 
-/**** FUNCIÓNES del DRAG o arrastre ***/
-// https://github.com/SortableJS/Sortable
-
-new Sortable(tareascreadasContainer, {
-  group: 'tareas',
-  animation: 150,
-  onStart: (evento) => {
-    console.log("Id: " + evento.item.id)
-    console.log("Desde: " + evento.from.id)
-  },
-  onEnd: (evento) => {
-    if (evento.from.id != evento.to.id) updateDbFirebase(evento.item.id, evento.to.id)
-  }
-});
-
-new Sortable(tareasprocesoContainer, {
-  group: 'tareas',
-  animation: 150,
-  onEnd: (evento) => {
-    if (evento.from.id != evento.to.id) updateDbFirebase(evento.item.id, evento.to.id)
-  }
-});
-
-new Sortable(tareasfinalizadasContainer, {
-  group: 'tareas',
-  animation: 150,
-  onEnd: (evento) => {
-    if (evento.from.id != evento.to.id) updateDbFirebase(evento.item.id, evento.to.id)
-  }
-});
-
+//Función para actualizar el campo oculto del html para el traslado
 const enviarIdTraslado = (idTraslado) => document.getElementById('campo-id-traslado').value = idTraslado
 
+//Función para actualizar los campos
 function readDBbyId(iddoc) {
   let docRef = db.collection("tareasDb").doc(iddoc);
   docRef.get().then((doc) => {
@@ -57,6 +25,7 @@ function readDBbyId(iddoc) {
   });
 }
 
+//Función de confirmación y eliminación de la tarea
 const deleteTask = (iddoc) => {
   Swal.fire({
     title: 'Esta seguro que desea eliminar esta tarea?',
@@ -71,7 +40,8 @@ const deleteTask = (iddoc) => {
   })
 }
 
-//Función para detectar clicks en el DOM y saber que objeto es
+//Función para detectar clicks en el DOM y saber que objeto es, con el fin de
+//Eliminar, Actualizar o hacer un traldalo de container por el ID
 document.addEventListener('click', function (e) {
   if (e.target.name == "edit" || e.target.name == "delete" || e.target.name == "traslado") {
     let id = e.target.getAttribute("data-id")
@@ -88,7 +58,7 @@ document.addEventListener('click', function (e) {
   }
 });
 
-
+//Botón del traslado en móviles
 botonUpdateTraslado.addEventListener('click', () => {
   const valorIdTraslado = document.getElementById('campo-id-traslado').value
   const valorSelect = document.getElementById('selectTraslado').value
@@ -100,21 +70,7 @@ botonUpdateTraslado.addEventListener('click', () => {
   $('#trasladoMobileModal').modal('hide');
 })
 
-
-const updateDbFirebase = (iddoc, divestado) => {
-  if (divestado == "tareas-proceso") {
-    db.collection("tareasDb").doc(iddoc).update({ estado: "proceso" });
-  }
-  if (divestado == "tareas-finalizadas") {
-    db.collection("tareasDb").doc(iddoc).update({ estado: "finalizada" });
-  }
-  if (divestado == "tareas-creadas") {
-    db.collection("tareasDb").doc(iddoc).update({ estado: "creada" });
-  }
-  console.log("!Tarea actualizada")
-}
-
-
+//Cuando creamos la tarea
 form.addEventListener("submit", e => {
   e.preventDefault();
   const fecha = new Date().toUTCString()
@@ -128,7 +84,7 @@ form.addEventListener("submit", e => {
   }
 });
 
-
+//Botón que activa la actualización de la tarea
 botonUpdateModal.addEventListener('click', () => {
   let iddoc = document.getElementById("campo-id-modal")
   let tareafinal = document.getElementById("tareaupdate")
@@ -144,7 +100,7 @@ botonUpdateModal.addEventListener('click', () => {
   }
 })
 
-
+//Función que renderiza los elementos con la base de datos de firebase
 const renderTareas = (doc) => {
   const fechaformat = moment(doc.data().fecha).format('lll'); //https://momentjs.com/
 
@@ -183,7 +139,7 @@ data-bs-target="#updateModal">
   }
 }
 
-
+//Función que obtiene los datos en tiempo real.
 const getRealtimeData = async () => {
   try {
     const datos = await db.collection("tareasDb").orderBy("titulo").onSnapshot(snapshot => {
@@ -193,7 +149,7 @@ const getRealtimeData = async () => {
           renderTareas(change.doc);
         } else if (change.type === "removed") {
           const element = document.getElementById(change.doc.id);
-          element.remove();
+          element.remove();         
         } else if (change.type === "modified") {
           const element = document.getElementById(change.doc.id);
           element.remove();
