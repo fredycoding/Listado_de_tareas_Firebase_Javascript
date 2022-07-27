@@ -41,7 +41,7 @@ const deleteTask = (iddoc) => {
 }
 
 //Función para detectar clicks en el DOM y saber que objeto es, con el fin de
-//Eliminar, Actualizar o hacer un traslado de container por el ID.
+//Eliminar, Actualizar o hacer un traslado de container por el ID
 document.addEventListener('click', function (e) {
   if (e.target.name == "edit" || e.target.name == "delete" || e.target.name == "traslado") {
     let id = e.target.getAttribute("data-id")
