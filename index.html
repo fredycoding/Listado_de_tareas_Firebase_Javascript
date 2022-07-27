@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="assets/css/icofont/icofont.min.css">
 
     <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="stylesheet" href="assets/css/animation.css">
     <title>App Tareas by F.A.D.B</title>
     <link rel="icon" type="image/x-icon" href="assets/images/favicon.png">
 
@@ -22,7 +23,7 @@
     <!-- Inicio del Nav Bar-->
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
-            <h1 class="titulobrand">Tareas</h1>
+            <h1 class="titulobrand animation-title">Tareas</h1>
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -43,17 +44,17 @@
         <div class="container-fluid">
             <div class="contenedor-principal">
                 <!-- Zona de crear tarea-->
-                <div class="tareas-container" id="tareas-creadas">
+                <div class="tareas-container slide-in-bottom" id="tareas-creadas">
                     <i class="icofont-tasks-alt"></i> POR HACER
                 </div>
 
                 <!-- Zona de tarea en proceso-->
-                <div class="tareas-container" id="tareas-proceso">
+                <div class="tareas-container slide-in-bottom" id="tareas-proceso">
                     <i class="icofont-tools-alt-2"></i> EN PROCESO
                 </div>
 
                 <!-- Zona de tarea finalizada-->
-                <div class="tareas-container" id="tareas-finalizadas">
+                <div class="tareas-container slide-in-bottom" id="tareas-finalizadas">
                     <i class="icofont-check-circled"></i> FINALIZADAS
                 </div>
             </div>
